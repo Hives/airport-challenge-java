@@ -1,6 +1,6 @@
 public class FizzBuzz {
     public String play(int n) {
-        if (n == 15) {
+        if (n % 15 == 0) {
             return "FizzBuzz";
         }
         if (n % 5 == 0) {
