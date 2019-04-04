@@ -36,3 +36,5 @@
 
 ### 4. TDD FizzBuzz
 
+- [Configuring testing libraries in IntelliJ (jetbrains.com)](https://www.jetbrains.com/help/idea/configuring-testing-libraries.html) - nah, forget that
+- From the tests: `FizzBuzz fizzBuzz = new FizzBuzz();` - why has this line got so many fizzbuzzes in it?
