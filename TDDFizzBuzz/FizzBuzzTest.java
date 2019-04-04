@@ -24,4 +24,9 @@ public class FizzBuzzTest {
     public void fizzBuzz5EqualsBuzz() {
         assertEquals(fizzBuzz.play(5), "Buzz");
     }
+
+    @Test
+    public void fizzBuzz6EqualsFizz() {
+        assertEquals(fizzBuzz.play(6), "Fizz");
+    }
 }
