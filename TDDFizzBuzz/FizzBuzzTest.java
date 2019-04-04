@@ -7,26 +7,31 @@ public class FizzBuzzTest {
 
     @Test
     public void fizzBuzz1Equals1() {
-        assertEquals(fizzBuzz.play(1), "1");
+        assertEquals("1", fizzBuzz.play(1));
     }
 
     @Test
     public void fizzBuzz2Equals2() {
-        assertEquals(fizzBuzz.play(2), "2");
+        assertEquals("2", fizzBuzz.play(2));
     }
 
     @Test
     public void fizzBuzz3EqualsFizz() {
-        assertEquals(fizzBuzz.play(3), "Fizz");
+        assertEquals("Fizz", fizzBuzz.play(3));
     }
 
     @Test
     public void fizzBuzz5EqualsBuzz() {
-        assertEquals(fizzBuzz.play(5), "Buzz");
+        assertEquals("Buzz", fizzBuzz.play(5));
     }
 
     @Test
     public void fizzBuzz6EqualsFizz() {
-        assertEquals(fizzBuzz.play(6), "Fizz");
+        assertEquals("Fizz", fizzBuzz.play(6));
+    }
+
+    @Test
+    public void fizzBuzz10EqualsBuzz() {
+        assertEquals("Buzz", fizzBuzz.play(10));
     }
 }
