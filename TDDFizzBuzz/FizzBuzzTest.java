@@ -34,4 +34,9 @@ public class FizzBuzzTest {
     public void fizzBuzz10EqualsBuzz() {
         assertEquals("Buzz", fizzBuzz.play(10));
     }
+
+    @Test
+    public void fizzBuzz15EqualsFizzBuzz() {
+        assertEquals("FizzBuzz", fizzBuzz.play(15));
+    }
 }
