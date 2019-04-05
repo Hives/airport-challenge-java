@@ -42,3 +42,79 @@
 ### 5. Airport challenge
 
 - Will want a REPL. [JShell](https://www.infoq.com/articles/jshell-java-repl)
+- Java gives you way more error messages than Ruby and Javascript, even before the tests run. e.g. this error telling me the `airport.clearForTakeOff` method doesn't exist comes from the compiler, not the test
+  ```
+  AirportTest.java:44: error: cannot find symbol
+        airport.clearForTakeOff(plane2);
+               ^
+  symbol:   method clearForTakeOff(Plane)
+  location: variable airport of type Airport
+  ```
+- [`throw` and `throws` in Java](https://www.geeksforgeeks.org/throw-throws-java/)  
+    **Should we make our exceptions checked or unchecked?**  
+    Following is the bottom line from Java documents:  
+    > If a client can reasonably be expected to recover from an exception, make it a checked exception. If a client cannot do anything to recover from the exception, make it an unchecked exception
+- [Unchecked Exceptions — The Controversy](https://docs.oracle.com/javase/tutorial/essential/exceptions/runtime.html) 😲
+- In jshell:
+  ```
+  jshell> import airport.*;
+  
+  jshell> Airport airport = new Airport();
+  airport ==> airport.Airport@42e26948
+  
+  jshell> Plane plane = new Plane();
+  plane ==> airport.Plane@53b32d7
+  
+  jshell> airport.clearForLanding(plane);
+  $4 ==> [airport.Plane@53b32d7]
+  
+  jshell> airport.clearForTakeOff(plane);
+  $5 ==> []
+  ```
+  NICE
+- [JUnit FAQ](https://junit.org/junit4/faq.html)  
+  **Is there a basic template I can use to create a test?**
+
+    (Submitted by: Eric Armstrong)
+
+    The following templates are a good starting point. Copy/paste and edit these templates to suit your coding style.
+
+    SampleTest is a basic test template:
+
+        import org.junit.*;
+        import static org.junit.Assert.*;
+         
+        public class SampleTest {
+         
+            private java.util.List emptyList;
+         
+            /**
+             * Sets up the test fixture. 
+             * (Called before every test case method.)
+             */
+            @Before
+            public void setUp() {
+                emptyList = new java.util.ArrayList();
+            }
+         
+            /**
+             * Tears down the test fixture. 
+             * (Called after every test case method.)
+             */
+            @After
+            public void tearDown() {
+                emptyList = null;
+            }
+            
+            @Test
+            public void testSomeBehavior() {
+                assertEquals("Empty list should have 0 elements", 0, emptyList.size());
+            }
+         
+            @Test(expected=IndexOutOfBoundsException.class)
+            public void testForException() {
+                Object o = emptyList.get(0);
+            }
+        }
+- Maven, Graven, Grapple, Gradle...... wtf was that all about
+- [This (tdd, jetbrains.com)](https://www.jetbrains.com/help/idea/tdd-with-intellij-idea.html) and [this (configuring testing libraries)](https://www.jetbrains.com/help/idea/configuring-testing-libraries.html) finally sorted me out
