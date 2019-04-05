@@ -1,4 +1,4 @@
-# Java Adventure
+# Trying to test drive Airport Challenge in Java
 
 ## Process
 
@@ -38,3 +38,7 @@
 
 - [Configuring testing libraries in IntelliJ (jetbrains.com)](https://www.jetbrains.com/help/idea/configuring-testing-libraries.html) - nah, forget that
 - From the tests: `FizzBuzz fizzBuzz = new FizzBuzz();` - why has this line got so many fizzbuzzes in it?
+
+### 5. Airport challenge
+
+- Will want a REPL. [JShell](https://www.infoq.com/articles/jshell-java-repl)
