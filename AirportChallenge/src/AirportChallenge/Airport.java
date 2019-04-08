@@ -5,33 +5,33 @@ import java.util.ArrayList;
 public class Airport {
 
     private ArrayList<Plane> hanger = new ArrayList<Plane>();
+    private Weather weather;
 
-    public ArrayList<Plane> clearForLanding(Plane plane) throws AirportException {
-
-        if (hanger.contains(plane)) {
-            throw new AirportException("Could not land plane. Plane was already at airport.");
-        }
-        hanger.add(plane);
-        return hanger;
-//        try {
-//            addPlaneToHanger(plane);
-//        }
-//        catch (AirportException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//        return hanger;
+    public Airport(Weather weather) {
+        this.weather = weather;
     }
 
-//    public void addPlaneToHanger(Plane plane) throws AirportException {
-//        if (hanger.contains(plane)) {
-//            throw new AirportException("no mate");
-//        } else {
-//            hanger.add(plane);
-//        }
-//    }
+    // constructor overloading
+    public Airport() {
+        Weather weather = new Weather();
+        this.weather = weather;
+    }
+
+    public ArrayList<Plane> clearForLanding(Plane plane) {
+        if(weather.isStormy()) {
+            System.out.println("weather was stormy");
+        } else {
+            hanger.add(plane);
+        }
+        return hanger;
+    }
 
     public ArrayList<Plane> clearForTakeOff(Plane plane) {
-        hanger.remove(plane);
+        if(weather.isStormy()) {
+            System.out.println("weather was stormy");
+        } else {
+            hanger.remove(plane);
+        }
         return hanger;
     }
 
