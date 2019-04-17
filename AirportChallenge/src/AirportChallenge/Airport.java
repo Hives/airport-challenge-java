@@ -11,18 +11,17 @@ public class Airport {
     private int capacity;
 
     // constructor overloading
+    // three constructors here. some repetition. is this the best way to do it?
     public Airport() {
         Weather weather = new Weather();
         this.weather = weather;
         this.capacity = DEFAULT_MAX_CAPACITY;
     }
-
     public Airport(int capacity) {
         Weather weather = new Weather();
         this.weather = weather;
         this.capacity = capacity;
     }
-
     public Airport(Weather weather, int capacity) {
         this.weather = weather;
         this.capacity = capacity;

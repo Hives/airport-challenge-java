@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2ca98e50-d16a-4b29-80c0-0b9a3571ac75" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/AirportChallenge/Airport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AirportChallenge/Airport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AirportChallenge/AirportTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AirportChallenge/AirportTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,14 +16,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AirportChallenge/Airport.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+            <state relative-caret-position="87">
+              <caret line="13" column="40" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
               <folding>
                 <element signature="e#131#138#0" expanded="true" />
-                <element signature="e#1624#1625#0" expanded="true" />
+                <element signature="e#1702#1703#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -57,11 +56,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AirportChallenge/AirportTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="149" column="56" selection-start-line="149" selection-start-column="56" selection-end-line="149" selection-end-column="56" />
+            <state relative-caret-position="-655">
+              <caret line="17" column="72" selection-start-line="17" selection-start-column="72" selection-end-line="17" selection-end-column="72" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -110,8 +109,8 @@
         <option value="$PROJECT_DIR$/src/AirportChallenge/Weather.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/jshell/jshell_console_5.snippet" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/jshell/jshell_console_6.snippet" />
-        <option value="$PROJECT_DIR$/src/AirportChallenge/Airport.java" />
         <option value="$PROJECT_DIR$/src/AirportChallenge/AirportTest.java" />
+        <option value="$PROJECT_DIR$/src/AirportChallenge/Airport.java" />
       </list>
     </option>
   </component>
@@ -320,12 +319,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="AirportTest - 2019.04.17 at 22h 31m 32s.xml">
-      <configuration name="AirportTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AirportTest_planeCannotLandIfAirportFull - 2019.04.17 at 22h 32m 50s.xml">
-      <configuration name="AirportTest.planeCannotLandIfAirportFull" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="AirportTest_planeCannotLandIfAirportFull - 2019.04.17 at 22h 33m 12s.xml">
       <configuration name="AirportTest.planeCannotLandIfAirportFull" configurationId="JUnit" />
     </history-entry>
@@ -348,6 +341,12 @@
       <configuration name="AirportTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="AirportTest - 2019.04.17 at 23h 14m 38s.xml">
+      <configuration name="AirportTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AirportTest - 2019.04.17 at 23h 17m 42s.xml">
+      <configuration name="AirportTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AirportTest - 2019.04.17 at 23h 20m 29s.xml">
       <configuration name="AirportTest" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -481,23 +480,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AirportChallenge/Airport.java">
+    <entry file="file://$PROJECT_DIR$/src/AirportChallenge/AirportTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+        <state relative-caret-position="-655">
+          <caret line="17" column="72" selection-start-line="17" selection-start-column="72" selection-end-line="17" selection-end-column="72" />
           <folding>
-            <element signature="e#131#138#0" expanded="true" />
-            <element signature="e#1624#1625#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AirportChallenge/AirportTest.java">
+    <entry file="file://$PROJECT_DIR$/src/AirportChallenge/Airport.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="149" column="56" selection-start-line="149" selection-start-column="56" selection-end-line="149" selection-end-column="56" />
+        <state relative-caret-position="87">
+          <caret line="13" column="40" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#131#138#0" expanded="true" />
+            <element signature="e#1702#1703#0" expanded="true" />
           </folding>
         </state>
       </provider>
