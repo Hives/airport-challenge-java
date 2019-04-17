@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 class WeatherStub extends Weather {
     public boolean stormy = false;
-
     public boolean isStormy() {
         return stormy;
     }
@@ -16,7 +15,7 @@ class WeatherStub extends Weather {
 class AirportTest {
     WeatherStub weather = new WeatherStub();
 
-    Airport airport = new Airport(weather, Airport.MAX_CAPACITY);
+    Airport airport = new Airport(weather, Airport.DEFAULT_MAX_CAPACITY);
     Plane plane1 = new Plane();
     Plane plane2 = new Plane();
     Plane plane3 = new Plane();
@@ -121,7 +120,7 @@ class AirportTest {
     // I want to prevent landing when the airport is full
     @Test
     public void planeCannotLandIfAirportFull() throws AirportException {
-        for (int i = 0; i < airport.MAX_CAPACITY; i++) {
+        for (int i = 0; i < airport.DEFAULT_MAX_CAPACITY; i++) {
             airport.clearForLanding(new Plane ());
         }
         try {
@@ -133,7 +132,7 @@ class AirportTest {
         assertFalse(airport.contains(plane1));
     }
     @Test void landingAtFullAirportThrowsError() throws AirportException {
-        for (int i = 0; i < airport.MAX_CAPACITY; i++) {
+        for (int i = 0; i < airport.DEFAULT_MAX_CAPACITY; i++) {
             airport.clearForLanding(new Plane ());
         }
         assertThrows(AirportException.class, () -> {
@@ -146,8 +145,8 @@ class AirportTest {
     // I would like a default airport capacity that can be overridden as appropriate
     @Test
     public void airportDefaultCapacityCanBeOverridden() throws AirportException {
-        int capacity = Airport.MAX_CAPACITY + 1;
-        Airport airport = new Airport(weather, capacity); // this won't work because it's expecting a Weather object
+        int capacity = Airport.DEFAULT_MAX_CAPACITY + 1;
+        Airport airport = new Airport(weather, capacity);
         for (int i = 0; i < capacity; i++) {
             airport.clearForLanding(new Plane ());
         }

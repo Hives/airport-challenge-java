@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Airport {
 
-    public static final int MAX_CAPACITY = 3;
+    public static final int DEFAULT_MAX_CAPACITY = 3;
 
     private ArrayList<Plane> hanger = new ArrayList<Plane>();
     private Weather weather;
@@ -14,7 +14,7 @@ public class Airport {
     public Airport() {
         Weather weather = new Weather();
         this.weather = weather;
-        this.capacity = MAX_CAPACITY;
+        this.capacity = DEFAULT_MAX_CAPACITY;
     }
 
     public Airport(int capacity) {
