@@ -20,7 +20,7 @@ class AirportTest {
     Plane plane2 = new Plane();
     Plane plane3 = new Plane();
 
-    private void landThreePlanes() {
+    private void landThreePlanes() throws AirportException {
         airport.clearForLanding(plane1);
         airport.clearForLanding(plane2);
         airport.clearForLanding(plane3);
@@ -30,24 +30,30 @@ class AirportTest {
     // So I can get passengers to a destination
     // I want to instruct a plane to land at an airport
     @Test
-    public void landAPlane() {
-        ArrayList<Plane> hanger = airport.clearForLanding(plane1);
+    public void itCanLandAPlane() throws AirportException {
+        airport.clearForLanding(plane1);
         assertTrue(airport.contains(plane1));
     }
     @Test
-    public void itCanLandThreePlanes() {
+    public void itCanLandThreePlanes() throws AirportException {
         landThreePlanes();
         assertTrue(airport.contains(plane1));
         assertTrue(airport.contains(plane2));
         assertTrue(airport.contains(plane3));
     }
-    // airport.clearForLanding should raise an error if plane is already at airport
+    @Test
+    public void clearForLandingThrowsErrorIfPlaneAtAirport() throws AirportException {
+        airport.clearForLanding(plane1);
+        assertThrows(AirportException.class, () -> {
+            airport.clearForLanding(plane1);
+        });
+    }
 
     // As an air traffic controller
     // So I can get passengers on the way to their destination
     // I want to instruct a plane to take off from an airport and confirm that it is no longer in the airport
     @Test
-    public void itCanInstructAPlaneToTakeOff() {
+    public void itCanInstructAPlaneToTakeOff() throws AirportException {
         landThreePlanes();
 
         airport.clearForTakeOff(plane2);
@@ -56,28 +62,59 @@ class AirportTest {
         assertFalse(airport.contains(plane2));
         assertTrue(airport.contains(plane3));
     }
-    // airport.clearForTakeoff should raise an error if plane is not at airport
+    @Test
+    public void clearForTakeOffThrowsErrorIfPlaneNotAtAirport() throws AirportException {
+        assertThrows(AirportException.class, () -> {
+            airport.clearForTakeOff(plane1);
+        });
+    }
 
     // As an air traffic controller
     // To ensure safety
     // I want to prevent takeoff when weather is stormy
     @Test
-    public void planesCantTakeOffInBadWeather() {
+    public void takingOffInBadWeatherThrowsError() throws AirportException {
         airport.clearForLanding(plane1);
         weather.stormy = true;
-        airport.clearForTakeOff(plane1);
+        assertThrows(AirportException.class, () -> {
+            airport.clearForTakeOff(plane1);
+        });
+    }
+    @Test
+    public void planeCannotLeaveAirportInBadWeather() throws AirportException {
+        airport.clearForLanding(plane1);
+        weather.stormy = true;
+        try {
+            airport.clearForTakeOff(plane1);
+        }
+        catch (AirportException ex) {
+            System.out.println(ex.getMessage());
+        }
         assertTrue(airport.contains(plane1));
-        // this should raise an error
     }
 
     // As an air traffic controller
     // To ensure safety
     // I want to prevent landing when weather is stormy
     @Test
-    public void planesCantLandInBadWeather() {
+    public void landingInBadWeatherThrowsError() throws AirportException {
         weather.stormy = true;
-        airport.clearForLanding(plane1);
-        assertFalse(airport.contains(plane1));
+        assertThrows(AirportException.class, () -> {
+            airport.clearForLanding(plane1);
+        });
+//        airport.clearForLanding(plane1);
+//        assertFalse(airport.contains(plane1));
         // this should raise an error
+    }
+    @Test
+    public void planeCannotLandAtAirportInBadWeather() throws AirportException {
+        weather.stormy = true;
+        try {
+            airport.clearForLanding(plane1);
+        }
+        catch (AirportException ex) {
+            System.out.println(ex.getMessage());
+        }
+        assertFalse(airport.contains(plane1));
     }
 }

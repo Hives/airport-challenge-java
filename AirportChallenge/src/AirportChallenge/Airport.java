@@ -17,21 +17,17 @@ public class Airport {
         this.weather = weather;
     }
 
-    public ArrayList<Plane> clearForLanding(Plane plane) {
-        if(weather.isStormy()) {
-            System.out.println("weather was stormy");
-        } else {
-            hanger.add(plane);
-        }
+    public ArrayList<Plane> clearForLanding(Plane plane) throws AirportException {
+        if (weather.isStormy()) throw new AirportException("Plane could not land. Weather was stormy.");
+        if (contains(plane)) throw new AirportException("Plane could not land. Plane already at airport.");
+        hanger.add(plane);
         return hanger;
     }
 
-    public ArrayList<Plane> clearForTakeOff(Plane plane) {
-        if(weather.isStormy()) {
-            System.out.println("weather was stormy");
-        } else {
-            hanger.remove(plane);
-        }
+    public ArrayList<Plane> clearForTakeOff(Plane plane) throws AirportException {
+        if (weather.isStormy()) throw new AirportException("Plane could not take off. Weather was stormy.");
+        if (!contains(plane)) throw new AirportException("Plane could not take off. Plane was not at airport.");
+        hanger.remove(plane);
         return hanger;
     }
 
