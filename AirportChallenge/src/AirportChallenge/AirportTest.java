@@ -15,6 +15,7 @@ class WeatherStub extends Weather {
 
 class AirportTest {
     WeatherStub weather = new WeatherStub();
+
     Airport airport = new Airport(weather);
     Plane plane1 = new Plane();
     Plane plane2 = new Plane();
@@ -102,9 +103,6 @@ class AirportTest {
         assertThrows(AirportException.class, () -> {
             airport.clearForLanding(plane1);
         });
-//        airport.clearForLanding(plane1);
-//        assertFalse(airport.contains(plane1));
-        // this should raise an error
     }
     @Test
     public void planeCannotLandAtAirportInBadWeather() throws AirportException {
@@ -117,4 +115,31 @@ class AirportTest {
         }
         assertFalse(airport.contains(plane1));
     }
+
+    // As an air traffic controller
+    // To ensure safety
+    // I want to prevent landing when the airport is full
+    @Test
+    public void planeCannotLandIfAirportFull() throws AirportException {
+        for (int i = 0; i < airport.MAX_CAPACITY; i++) {
+            airport.clearForLanding(new Plane ());
+        }
+        try {
+            airport.clearForLanding(plane1);
+        }
+        catch (AirportException ex) {
+            System.out.println(ex.getMessage());
+        }
+        assertFalse(airport.contains(plane1));
+    }
+    @Test void landingAtFullAirportThrowsError() throws AirportException {
+        for (int i = 0; i < airport.MAX_CAPACITY; i++) {
+            airport.clearForLanding(new Plane ());
+        }
+        assertThrows(AirportException.class, () -> {
+            airport.clearForLanding(plane1);
+        });
+    }
 }
+
+

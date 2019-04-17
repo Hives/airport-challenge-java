@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Airport {
 
+    public final int MAX_CAPACITY = 3;
+
     private ArrayList<Plane> hanger = new ArrayList<Plane>();
     private Weather weather;
 
@@ -20,6 +22,7 @@ public class Airport {
     public ArrayList<Plane> clearForLanding(Plane plane) throws AirportException {
         if (weather.isStormy()) throw new AirportException("Plane could not land. Weather was stormy.");
         if (contains(plane)) throw new AirportException("Plane could not land. Plane already at airport.");
+        if (hanger.size() >= MAX_CAPACITY) throw new AirportException("Plane could not land. Airport at capacity.");
         hanger.add(plane);
         return hanger;
     }
