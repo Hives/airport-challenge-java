@@ -4,25 +4,34 @@ import java.util.ArrayList;
 
 public class Airport {
 
-    public final int MAX_CAPACITY = 3;
+    public static final int MAX_CAPACITY = 3;
 
     private ArrayList<Plane> hanger = new ArrayList<Plane>();
     private Weather weather;
-
-    public Airport(Weather weather) {
-        this.weather = weather;
-    }
+    private int capacity;
 
     // constructor overloading
     public Airport() {
         Weather weather = new Weather();
         this.weather = weather;
+        this.capacity = MAX_CAPACITY;
+    }
+
+    public Airport(int capacity) {
+        Weather weather = new Weather();
+        this.weather = weather;
+        this.capacity = capacity;
+    }
+
+    public Airport(Weather weather, int capacity) {
+        this.weather = weather;
+        this.capacity = capacity;
     }
 
     public ArrayList<Plane> clearForLanding(Plane plane) throws AirportException {
         if (weather.isStormy()) throw new AirportException("Plane could not land. Weather was stormy.");
         if (contains(plane)) throw new AirportException("Plane could not land. Plane already at airport.");
-        if (hanger.size() >= MAX_CAPACITY) throw new AirportException("Plane could not land. Airport at capacity.");
+        if (hanger.size() >= capacity) throw new AirportException("Plane could not land. Airport at capacity.");
         hanger.add(plane);
         return hanger;
     }

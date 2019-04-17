@@ -120,3 +120,4 @@
         }
 - Maven, Graven, Grapple, Gradle...... wtf was that all about
 - [This (tdd, jetbrains.com)](https://www.jetbrains.com/help/idea/tdd-with-intellij-idea.html) and [this (configuring testing libraries)](https://www.jetbrains.com/help/idea/configuring-testing-libraries.html) finally sorted me out
+- [Constructor overloading](https://www.geeksforgeeks.org/constructor-overloading-java/) - can use to provide a default value for the constructor method. Used for dependency injection in your tests. Basically you have two different constructors, one for if no argument is provided, and another one if you provide an argument, i.e. your mocked dependency.

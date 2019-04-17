@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2ca98e50-d16a-4b29-80c0-0b9a3571ac75" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AirportChallenge/Airport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AirportChallenge/Airport.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AirportChallenge/AirportTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AirportChallenge/AirportTest.java" afterDir="false" />
     </list>
@@ -21,12 +20,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AirportChallenge/Airport.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
+            <state relative-caret-position="435">
+              <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
               <folding>
-                <element signature="e#208#209#0" expanded="true" />
-                <element signature="e#246#247#0" expanded="true" />
-                <element signature="e#1344#1345#0" expanded="true" />
+                <element signature="e#131#138#0" expanded="true" />
+                <element signature="e#1607#1608#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -62,8 +60,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AirportChallenge/AirportTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="129" column="4" selection-start-line="129" selection-start-column="4" selection-end-line="129" selection-end-column="4" />
+            <state relative-caret-position="390">
+              <caret line="149" column="46" selection-start-line="149" selection-start-column="46" selection-end-line="149" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -234,7 +232,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AirportTest.clearForTakeOffThrowsErrorIfPlaneNotAtAirport" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AirportTest.airportDefaultCapacityCanBeOverridden" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="AirportChallenge" />
       <extension name="coverage">
         <pattern>
@@ -244,7 +242,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="AirportChallenge" />
       <option name="MAIN_CLASS_NAME" value="AirportChallenge.AirportTest" />
-      <option name="METHOD_NAME" value="clearForTakeOffThrowsErrorIfPlaneNotAtAirport" />
+      <option name="METHOD_NAME" value="airportDefaultCapacityCanBeOverridden" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -301,10 +299,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.AirportTest" />
+        <item itemvalue="JUnit.AirportTest.airportDefaultCapacityCanBeOverridden" />
         <item itemvalue="JUnit.AirportTest.landingAtFullAirportThrowsError" />
         <item itemvalue="JUnit.AirportTest.planeCannotLandIfAirportFull" />
         <item itemvalue="JUnit.AirportTest.itCanInstructAPlaneToTakeOff" />
-        <item itemvalue="JUnit.AirportTest.clearForTakeOffThrowsErrorIfPlaneNotAtAirport" />
       </list>
     </recent_temporary>
   </component>
@@ -322,18 +320,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="AirportTest_planeCannotLandIfAirportFull - 2019.04.17 at 22h 26m 15s.xml">
-      <configuration name="AirportTest.planeCannotLandIfAirportFull" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AirportTest_planeCannotLandIfAirportFull - 2019.04.17 at 22h 27m 22s.xml">
-      <configuration name="AirportTest.planeCannotLandIfAirportFull" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AirportTest_planeCannotLandIfAirportFull - 2019.04.17 at 22h 28m 29s.xml">
-      <configuration name="AirportTest.planeCannotLandIfAirportFull" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AirportTest_planeCannotLandIfAirportFull - 2019.04.17 at 22h 28m 55s.xml">
-      <configuration name="AirportTest.planeCannotLandIfAirportFull" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="AirportTest_planeCannotLandIfAirportFull - 2019.04.17 at 22h 29m 31s.xml">
       <configuration name="AirportTest.planeCannotLandIfAirportFull" configurationId="JUnit" />
     </history-entry>
@@ -352,6 +338,18 @@
     <history-entry file="AirportTest_planeCannotLandIfAirportFull - 2019.04.17 at 22h 33m 12s.xml">
       <configuration name="AirportTest.planeCannotLandIfAirportFull" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="AirportTest_planeCannotLandIfAirportFull - 2019.04.17 at 22h 35m 20s.xml">
+      <configuration name="AirportTest.planeCannotLandIfAirportFull" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AirportTest_landingAtFullAirportThrowsError - 2019.04.17 at 22h 38m 32s.xml">
+      <configuration name="AirportTest.landingAtFullAirportThrowsError" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AirportTest - 2019.04.17 at 22h 39m 03s.xml">
+      <configuration name="AirportTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AirportTest_airportDefaultCapacityCanBeOverridden - 2019.04.17 at 22h 45m 23s.xml">
+      <configuration name="AirportTest.airportDefaultCapacityCanBeOverridden" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -366,7 +364,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32956153" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3281471" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3281471" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -385,7 +383,7 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2641357" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.2641357" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -394,7 +392,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32956153" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3281471" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3281471" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -402,7 +400,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info active="true" anchor="bottom" id="Messages" order="10" visible="true" weight="0.34087694" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.34087694" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -462,13 +460,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AirportChallenge/Weather.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AirportChallenge/Plane.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -483,22 +474,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/AirportChallenge/Weather.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/AirportChallenge/Airport.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
+        <state relative-caret-position="435">
+          <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
           <folding>
-            <element signature="e#208#209#0" expanded="true" />
-            <element signature="e#246#247#0" expanded="true" />
-            <element signature="e#1344#1345#0" expanded="true" />
+            <element signature="e#131#138#0" expanded="true" />
+            <element signature="e#1607#1608#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AirportChallenge/AirportTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="129" column="4" selection-start-line="129" selection-start-column="4" selection-end-line="129" selection-end-column="4" />
+        <state relative-caret-position="390">
+          <caret line="149" column="46" selection-start-line="149" selection-start-column="46" selection-end-line="149" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

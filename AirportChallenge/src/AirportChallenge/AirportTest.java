@@ -16,7 +16,7 @@ class WeatherStub extends Weather {
 class AirportTest {
     WeatherStub weather = new WeatherStub();
 
-    Airport airport = new Airport(weather);
+    Airport airport = new Airport(weather, Airport.MAX_CAPACITY);
     Plane plane1 = new Plane();
     Plane plane2 = new Plane();
     Plane plane3 = new Plane();
@@ -139,6 +139,22 @@ class AirportTest {
         assertThrows(AirportException.class, () -> {
             airport.clearForLanding(plane1);
         });
+    }
+
+    // As the system designer
+    // So that the software can be used for many different airports
+    // I would like a default airport capacity that can be overridden as appropriate
+    @Test
+    public void airportDefaultCapacityCanBeOverridden() throws AirportException {
+        int capacity = Airport.MAX_CAPACITY + 1;
+        Airport airport = new Airport(weather, capacity); // this won't work because it's expecting a Weather object
+        for (int i = 0; i < capacity; i++) {
+            airport.clearForLanding(new Plane ());
+        }
+        assertThrows(AirportException.class, () -> {
+            airport.clearForLanding(plane1);
+        });
+
     }
 }
 
