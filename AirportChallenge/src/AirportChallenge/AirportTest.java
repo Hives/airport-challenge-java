@@ -89,5 +89,28 @@ class AirportTest {
         catch (AirportException exception) {}
         assertFalse(airport.contains(planeDouble1));
     }
+
+
+    @Test
+    public void itThrowsErrorIfLandingAttemptedWhenFull() throws AirportException {
+        for (int i = 0; i < 20; i++) {
+            airport.clearForLanding(new PlaneDouble());
+        }
+        assertThrows(AirportException.class, () -> {
+            airport.clearForLanding(new PlaneDouble());
+        });
+    }
+
+    @Test
+    public void itDoesNotLandAPlaneIfFull() throws AirportException {
+        for (int i = 0; i < 20; i++) {
+            airport.clearForLanding(new PlaneDouble());
+        }
+        try {
+            airport.clearForLanding(planeDouble1);
+        }
+        catch (AirportException exception) {}
+        assertFalse(airport.contains(planeDouble1));
+    }
 }
 

@@ -43,8 +43,21 @@ public class UserStories {
     // To ensure safety
     // I want to prevent landing when weather is stormy
     @Test
-    public void landingIsPreventedInBadWeather() throws AirportException {
+    public void landingIsPreventedInBadWeather() {
         weather.stormy = true;
+        assertThrows(AirportException.class, () -> {
+            airport.clearForLanding(plane1);
+        });
+    }
+
+    // As an air traffic controller
+    // To ensure safety
+    // I want to prevent landing when the airport is full
+    @Test
+    public void landingIsPreventedIfAirportIsFull() throws AirportException {
+        for (int i = 0; i < 20; i++) {
+            airport.clearForLanding(new Plane());
+        }
         assertThrows(AirportException.class, () -> {
             airport.clearForLanding(plane1);
         });
