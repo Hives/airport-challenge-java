@@ -52,6 +52,8 @@
   symbol:   method clearForTakeOff(Plane)
   location: variable airport of type Airport
   ```
+- In the exemplar vid he uses a symbol, `:plane` as a double for plane early on, as he doesn't require it to have any particular properties at that point. This is a nice way of doubling a simple object. You can't do this in Java though because it wants to know the type of everything, so I had to create my `Plane` class much earlier, even though it wasn't doing anything.
+- Related - in the exemplar he interprets the 'i want to be able to instruct a plane to land' user story as just requiring that `airport.land(plane)` won't throw an error. But in Java, the code you won't compile unless there's an `airport.land()` which will accept `plane` as an input, so you can't write the equivalent test. So I chose to test that after doing `airport.land(plane)`, `airport.contains(plane)` was true.
 - [`throw` and `throws` in Java](https://www.geeksforgeeks.org/throw-throws-java/)  
     **Should we make our exceptions checked or unchecked?**  
     Following is the bottom line from Java documents:  
