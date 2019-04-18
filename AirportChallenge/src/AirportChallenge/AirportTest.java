@@ -11,13 +11,21 @@ class AirportTest {
     Plane planeDouble1 = new Plane();
 
     @Test
-    public void itCanLandPlanes() {
+    public void itCanLandPlanes() throws AirportException {
         airport.clearForLanding(planeDouble1);
         assertTrue(airport.contains(planeDouble1));
     }
 
     @Test
-    public void itCanTellPlanesToTakeOff() {
+    public void itThrowsErrorIfSamePlaneLandedTwice() throws AirportException {
+        airport.clearForLanding(planeDouble1);
+        assertThrows(AirportException.class, () -> {
+            airport.clearForLanding(planeDouble1);
+        });
+    }
+
+    @Test
+    public void itCanTellPlanesToTakeOff() throws AirportException {
         airport.clearForLanding(planeDouble1);
         airport.clearForTakeOff(planeDouble1);
         assertFalse(airport.contains(planeDouble1));

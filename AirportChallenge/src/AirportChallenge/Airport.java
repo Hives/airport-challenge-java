@@ -6,7 +6,8 @@ public class Airport {
 
     private ArrayList<Plane> hanger = new ArrayList<Plane>();
 
-    public void clearForLanding(Plane plane) {
+    public void clearForLanding(Plane plane) throws AirportException {
+        if (contains(plane)) throw new AirportException("Plane could not land. Plane already at airport.");
         hanger.add(plane);
     }
 
