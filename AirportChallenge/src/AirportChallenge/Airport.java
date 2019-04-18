@@ -11,7 +11,8 @@ public class Airport {
         hanger.add(plane);
     }
 
-    public void clearForTakeOff(Plane plane) {
+    public void clearForTakeOff(Plane plane) throws AirportException {
+        if (!contains(plane)) throw new AirportException("Plane could not take off. Plane not at airport.");
         hanger.remove(plane);
     }
 

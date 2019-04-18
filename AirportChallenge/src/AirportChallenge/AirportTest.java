@@ -30,5 +30,12 @@ class AirportTest {
         airport.clearForTakeOff(planeDouble1);
         assertFalse(airport.contains(planeDouble1));
     }
+
+    @Test
+    public void itThrowsErrorIfPlaneToldToTakeOffWhenNotAtAirport() throws AirportException {
+        assertThrows(AirportException.class, () -> {
+            airport.clearForTakeOff(planeDouble1);
+        });
+    }
 }
 
