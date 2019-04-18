@@ -93,7 +93,8 @@ class AirportTest {
 
     @Test
     public void itThrowsErrorIfLandingAttemptedWhenFull() throws AirportException {
-        for (int i = 0; i < 20; i++) {
+        int capacity = airport.MAX_CAPACITY;
+        for (int i = 0; i < capacity; i++) {
             airport.clearForLanding(new PlaneDouble());
         }
         assertThrows(AirportException.class, () -> {

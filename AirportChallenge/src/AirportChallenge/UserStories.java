@@ -55,7 +55,8 @@ public class UserStories {
     // I want to prevent landing when the airport is full
     @Test
     public void landingIsPreventedIfAirportIsFull() throws AirportException {
-        for (int i = 0; i < 20; i++) {
+        int capacity = airport.MAX_CAPACITY;
+        for (int i = 0; i < capacity; i++) {
             airport.clearForLanding(new Plane());
         }
         assertThrows(AirportException.class, () -> {
