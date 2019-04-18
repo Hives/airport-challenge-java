@@ -7,8 +7,12 @@ public class Airport {
     private ArrayList<Plane> hanger = new ArrayList<Plane>();
     private Weather weather;
 
+    public Airport() {
+        Weather weather = new Weather();
+        this.weather = weather;
+    }
     public Airport(Weather weather) {
-       this.weather =  weather;
+        this.weather =  weather;
     }
 
     public void clearForLanding(Plane plane) throws AirportException {

@@ -2,6 +2,7 @@ package AirportChallenge;
 
 public class Weather {
    public boolean isStormy () {
-       return true;
+       double p = Math.random();
+       return p < 0.25;
    }
 }
