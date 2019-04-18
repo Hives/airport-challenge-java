@@ -10,8 +10,10 @@ class AirportTest {
     Plane planeDouble1 = new Plane();
     Plane planeDouble2 = new Plane();
     Plane planeDouble3 = new Plane();
-    WeatherDouble weather = new WeatherDouble();
-    Airport airport = new Airport(weather);
+    WeatherDouble weatherDouble = new WeatherDouble();
+    Airport airport = new Airport.AirportBuilder()
+            .setWeather(weatherDouble)
+            .build();
 
     @Test
     public void itCanLandPlanes() throws AirportException {
@@ -39,7 +41,9 @@ class AirportTest {
         airport.clearForLanding(planeDouble1);
         airport.clearForLanding(planeDouble2);
         airport.clearForLanding(planeDouble3);
+
         airport.clearForTakeOff(planeDouble2);
+
         assertTrue(airport.contains(planeDouble1));
         assertFalse(airport.contains(planeDouble2));
         assertTrue(airport.contains(planeDouble3));
@@ -55,7 +59,7 @@ class AirportTest {
     @Test
     public void itThrowsErrorIfTakeOffAttemptedInBadWeather() throws AirportException {
         airport.clearForLanding(planeDouble1);
-        weather.stormy = true;
+        weatherDouble.stormy = true;
         assertThrows(AirportException.class, () -> {
             airport.clearForTakeOff(planeDouble1);
         });
@@ -64,7 +68,7 @@ class AirportTest {
     @Test
     public void itDoesNotTakeOffAPlaneInBadWeather() throws AirportException {
         airport.clearForLanding(planeDouble1);
-        weather.stormy = true;
+        weatherDouble.stormy = true;
         try {
             airport.clearForTakeOff(planeDouble1);
         }
@@ -74,7 +78,7 @@ class AirportTest {
 
     @Test
     public void itThrowsErrorIfLandingAttemptedInBadWeather() {
-        weather.stormy = true;
+        weatherDouble.stormy = true;
         assertThrows(AirportException.class, () -> {
             airport.clearForLanding(planeDouble1);
         });
@@ -82,7 +86,7 @@ class AirportTest {
 
     @Test
     public void itDoesNotLandAPlaneInBadWeather() {
-        weather.stormy = true;
+        weatherDouble.stormy = true;
         try {
             airport.clearForLanding(planeDouble1);
         }
@@ -93,7 +97,7 @@ class AirportTest {
 
     @Test
     public void itThrowsErrorIfLandingAttemptedWhenFull() throws AirportException {
-        int capacity = airport.MAX_CAPACITY;
+        int capacity = Airport.AirportBuilder.MAX_CAPACITY;
         for (int i = 0; i < capacity; i++) {
             airport.clearForLanding(new PlaneDouble());
         }
@@ -104,7 +108,7 @@ class AirportTest {
 
     @Test
     public void itDoesNotLandAPlaneIfFull() throws AirportException {
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < Airport.AirportBuilder.MAX_CAPACITY; i++) {
             airport.clearForLanding(new PlaneDouble());
         }
         try {
@@ -112,6 +116,20 @@ class AirportTest {
         }
         catch (AirportException exception) {}
         assertFalse(airport.contains(planeDouble1));
+    }
+
+    @Test void theCapacityCanBeOverridden() throws AirportException {
+        Airport airport = new Airport.AirportBuilder()
+                .setCapacity(30)
+                .setWeather(weatherDouble)
+                .build();
+
+        for (int i = 0; i < 30; i++) {
+            airport.clearForLanding(new Plane());
+        }
+        assertThrows(AirportException.class, () -> {
+            airport.clearForLanding(planeDouble1);
+        });
     }
 }
 

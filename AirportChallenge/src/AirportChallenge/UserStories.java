@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UserStories {
     Plane plane1 = new Plane();
-    WeatherDouble weather = new WeatherDouble();
-    Airport airport = new Airport(weather);
+    WeatherDouble weatherDouble = new WeatherDouble();
+    Airport airport = new Airport.AirportBuilder()
+                                 .setWeather(weatherDouble)
+                                 .build();
 
     // As an air traffic controller
     // So I can get passengers to a destination
@@ -33,7 +35,7 @@ public class UserStories {
     @Test
     public void takeOffIsPreventedInBadWeather() throws AirportException {
        airport.clearForLanding(plane1);
-       weather.stormy = true;
+       weatherDouble.stormy = true;
        assertThrows(AirportException.class, () -> {
            airport.clearForTakeOff(plane1);
        });
@@ -44,7 +46,7 @@ public class UserStories {
     // I want to prevent landing when weather is stormy
     @Test
     public void landingIsPreventedInBadWeather() {
-        weather.stormy = true;
+        weatherDouble.stormy = true;
         assertThrows(AirportException.class, () -> {
             airport.clearForLanding(plane1);
         });
@@ -55,8 +57,25 @@ public class UserStories {
     // I want to prevent landing when the airport is full
     @Test
     public void landingIsPreventedIfAirportIsFull() throws AirportException {
-        int capacity = airport.MAX_CAPACITY;
+        int capacity = Airport.AirportBuilder.MAX_CAPACITY;
         for (int i = 0; i < capacity; i++) {
+            airport.clearForLanding(new Plane());
+        }
+        assertThrows(AirportException.class, () -> {
+            airport.clearForLanding(plane1);
+        });
+    }
+
+    // As the system designer
+    // So that the software can be used for many different airports
+    // I would like a default airport capacity that can be overridden as appropriate
+    @Test public void defaultCapacityCanBeOverridden() throws AirportException {
+        Airport airport = new Airport.AirportBuilder()
+                             .setCapacity(30)
+                             .setWeather(weatherDouble)
+                             .build();
+
+        for (int i = 0; i < 30; i++) {
             airport.clearForLanding(new Plane());
         }
         assertThrows(AirportException.class, () -> {
