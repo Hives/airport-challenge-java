@@ -4,8 +4,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserStories {
-    Airport airport = new Airport();
     Plane plane1 = new Plane();
+    WeatherDouble weather = new WeatherDouble();
+    Airport airport = new Airport(weather);
 
     // As an air traffic controller
     // So I can get passengers to a destination
@@ -24,5 +25,17 @@ public class UserStories {
         airport.clearForLanding(plane1);
         airport.clearForTakeOff(plane1);
         assertFalse(airport.contains(plane1));
+    }
+
+    // As an air traffic controller
+    // To ensure safety
+    // I want to prevent takeoff when weather is stormy
+    @Test
+    public void takeOffIsPreventedInBadWeather() throws AirportException {
+       airport.clearForLanding(plane1);
+       weather.stormy = true;
+       assertThrows(AirportException.class, () -> {
+           airport.clearForTakeOff(plane1);
+       });
     }
 }

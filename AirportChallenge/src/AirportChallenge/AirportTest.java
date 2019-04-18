@@ -7,10 +7,11 @@ import java.util.ArrayList;
 
 class AirportTest {
 
-    Airport airport = new Airport();
     Plane planeDouble1 = new Plane();
     Plane planeDouble2 = new Plane();
     Plane planeDouble3 = new Plane();
+    WeatherDouble weather = new WeatherDouble();
+    Airport airport = new Airport(weather);
 
     @Test
     public void itCanLandPlanes() throws AirportException {
@@ -46,6 +47,15 @@ class AirportTest {
 
     @Test
     public void itThrowsErrorIfPlaneToldToTakeOffWhenNotAtAirport() throws AirportException {
+        assertThrows(AirportException.class, () -> {
+            airport.clearForTakeOff(planeDouble1);
+        });
+    }
+
+    @Test
+    public void takeOffIsPreventedInBadWeather() throws AirportException {
+        airport.clearForLanding(planeDouble1);
+        weather.stormy = true;
         assertThrows(AirportException.class, () -> {
             airport.clearForTakeOff(planeDouble1);
         });
