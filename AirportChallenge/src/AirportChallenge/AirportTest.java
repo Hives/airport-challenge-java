@@ -60,6 +60,7 @@ class AirportTest {
             airport.clearForTakeOff(planeDouble1);
         });
     }
+
     @Test
     public void itDoesNotTakeOffAPlaneInBadWeather() throws AirportException {
         airport.clearForLanding(planeDouble1);
@@ -69,6 +70,14 @@ class AirportTest {
         }
         catch (AirportException exception) {}
         assertTrue(airport.contains(planeDouble1));
+    }
+
+    @Test
+    public void itThrowsErrorIfLandingAttemptedInBadWeather() throws AirportException {
+        weather.stormy = true;
+        assertThrows(AirportException.class, () -> {
+            airport.clearForLanding(planeDouble1);
+        });
     }
 }
 

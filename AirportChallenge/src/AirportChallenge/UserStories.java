@@ -38,4 +38,15 @@ public class UserStories {
            airport.clearForTakeOff(plane1);
        });
     }
+
+    // As an air traffic controller
+    // To ensure safety
+    // I want to prevent landing when weather is stormy
+    @Test
+    public void landingIsPreventedInBadWeather() throws AirportException {
+        weather.stormy = true;
+        assertThrows(AirportException.class, () -> {
+            airport.clearForLanding(plane1);
+        });
+    }
 }
