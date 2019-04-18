@@ -53,12 +53,22 @@ class AirportTest {
     }
 
     @Test
-    public void takeOffIsPreventedInBadWeather() throws AirportException {
+    public void itThrowsErrorIfTakeOffAttemptedInBadWeather() throws AirportException {
         airport.clearForLanding(planeDouble1);
         weather.stormy = true;
         assertThrows(AirportException.class, () -> {
             airport.clearForTakeOff(planeDouble1);
         });
+    }
+    @Test
+    public void itDoesNotTakeOffAPlaneInBadWeather() throws AirportException {
+        airport.clearForLanding(planeDouble1);
+        weather.stormy = true;
+        try {
+            airport.clearForTakeOff(planeDouble1);
+        }
+        catch (AirportException exception) {}
+        assertTrue(airport.contains(planeDouble1));
     }
 }
 
