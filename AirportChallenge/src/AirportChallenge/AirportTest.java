@@ -13,7 +13,14 @@ class AirportTest {
     @Test
     public void itCanLandPlanes() {
         airport.clearForLanding(planeDouble1);
-        assert(airport.contains(planeDouble1));
+        assertTrue(airport.contains(planeDouble1));
+    }
+
+    @Test
+    public void itCanTellPlanesToTakeOff() {
+        airport.clearForLanding(planeDouble1);
+        airport.clearForTakeOff(planeDouble1);
+        assertFalse(airport.contains(planeDouble1));
     }
 }
 
