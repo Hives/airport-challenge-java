@@ -34,6 +34,16 @@ class AirportTest {
     }
 
     @Test
+    public void itCantLandALandedPlane() throws AirportException, PlaneException {
+        doThrow(PlaneException.class).when(planeMock).land();
+        try {
+            airport.clearForLanding(planeMock);
+        }
+        catch (PlaneException exception) {}
+        assertFalse(airport.contains(planeMock));
+    }
+
+    @Test
     public void itContainsAPlaneAfterLandingIt() throws AirportException, PlaneException {
         airport.clearForLanding(planeDouble1);
         assertTrue(airport.contains(planeDouble1));
