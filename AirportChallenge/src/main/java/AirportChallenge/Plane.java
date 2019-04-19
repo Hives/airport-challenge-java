@@ -19,7 +19,8 @@ public class Plane {
         myAirport = airport;
     }
 
-    public Airport airport() {
+    public Airport airport() throws PlaneException {
+        if (flying) throw new PlaneException("Plane cannot be at an airport. Plane is flying.");
         return myAirport;
     }
 }

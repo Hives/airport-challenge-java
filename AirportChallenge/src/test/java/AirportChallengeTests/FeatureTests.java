@@ -119,5 +119,12 @@ public class FeatureTests {
     }
 
     // Planes that are flying cannot be in an airport
+    @Test
+    public void planesThatAreFlyingCannotBeInAnAirport() {
+        Throwable exception = assertThrows(PlaneException.class, () -> {
+            plane1.airport();
+        });
+        assertEquals("Plane cannot be at an airport. Plane is flying.", exception.getMessage());
+    }
     // Planes can only take off from airports they are in
 }

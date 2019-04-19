@@ -129,3 +129,4 @@
 - How do you check coverage?
 - Here's an example of some Java BDD - I wrote a feature test, ran it and got an error, then wrote a unit test which generated the same error: <img src="/images/replicating-error-in-feature-and-unit-tests.png">  
   The interesting thing about this though is that these errors are being thrown by the compiler, not the tests. So in a compiled language, you can (have to?) follow the compiler errors as much as the test failures.
+- Just for completeness here's what two actual test failures at feature and unit levels looks like: <img src="/images/replicating-test-failure-in-feature-and-unit-tests.png">

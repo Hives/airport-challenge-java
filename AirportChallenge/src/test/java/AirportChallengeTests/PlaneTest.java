@@ -61,4 +61,11 @@ public class PlaneTest {
         plane.land(airportMock);
         assertEquals(plane.airport(), airportMock);
     }
+
+    @Test public void itCantBeAtAnAirportIfItsFlying() {
+        Throwable exception = assertThrows(PlaneException.class, () -> {
+            plane.airport();
+        });
+        assertEquals("Plane cannot be at an airport. Plane is flying.", exception.getMessage());
+    }
 }
