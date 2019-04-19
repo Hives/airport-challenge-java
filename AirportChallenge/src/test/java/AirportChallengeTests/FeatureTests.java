@@ -98,7 +98,7 @@ public class UserStories {
         Throwable exception = assertThrows(PlaneException.class, () -> {
             plane1.takeOff();
         });
-        assertEquals("Plane could not take off. Plane was already flying.", exception.getMessage());
+        assertEquals("Plane could not take off. Plane is already flying.", exception.getMessage());
     }
 
     // Planes that are landed cannot land again
@@ -108,10 +108,15 @@ public class UserStories {
         Throwable exception = assertThrows(PlaneException.class, () -> {
             plane1.land();
         });
-        assertEquals("Plane could not land. Plane was not flying.", exception.getMessage());
+        assertEquals("Plane could not land. Plane is not flying.", exception.getMessage());
     }
 
     // Planes that are landed must be in an airport
+    @Test
+    public void planesThatAreLandedMustBeInAnAirport() {
+        airport.clearForLanding(plane1);
+        assertEquals(plane1.airport(), airport);
+    }
 
     // Planes that are flying cannot be in an airport
     // Planes can only take off from airports they are in

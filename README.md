@@ -127,3 +127,5 @@
 - Constructor overloading not so good when you want to pass in multiple optional things into your constructor, like a weather mock object and a capacity. Seems to introduce unnecessary repetition. Look into builder pattern? **Update** - I implemented the builder constructor pattern along with user story 6
 - For the edge cases I started to need to mock out the behaviour of my classes. Used Mockito for this. Installed it and its dependencies as a package through Maven, which I installed as a dependency in my project using IntelliJ. Maven is also now managing JUnit, instead of using IntelliJ's version. Managing project s in Java is complicated :-/
 - How do you check coverage?
+- Here's an example of some Java BDD - I wrote a feature test, ran it and got an error, then wrote a unit test which generated the same error: <img src="/images/replicating-error-in-feature-and-unit-tests.png">  
+  The interesting thing about this though is that these errors are being thrown by the compiler, not the tests. So in a compiled language, you can (have to?) follow the compiler errors as much as the test failures.
