@@ -126,5 +126,17 @@ public class FeatureTests {
         });
         assertEquals("Plane cannot be at an airport. Plane is flying.", exception.getMessage());
     }
+
     // Planes can only take off from airports they are in
+    @Test
+    public void planesCanOnlyTakeOffFromAirportsTheyAreIn () throws AirportException, PlaneException {
+        Airport airport2 = new Airport.AirportBuilder()
+                .setWeather(weatherDouble)
+                .build();
+        airport.clearForLanding(plane1);
+        Throwable exception = assertThrows(AirportException.class, () -> {
+            airport2.clearForTakeOff(plane1);
+        });
+        assertEquals("Could not clear plane for take off. Plane is not at this airport.", exception.getMessage());
+    }
 }

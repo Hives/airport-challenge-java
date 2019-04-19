@@ -51,6 +51,7 @@ class AirportTest {
 
     @Test
     public void itCanTellAPlaneToTakeOff() throws AirportException, PlaneException {
+        airport.clearForLanding(planeMock);
         airport.clearForTakeOff(planeMock);
         verify(planeMock, times(1)).takeOff();
     }
@@ -140,7 +141,8 @@ class AirportTest {
         assertFalse(airport.contains(planeDouble1));
     }
 
-    @Test void theCapacityCanBeOverridden() throws AirportException, PlaneException {
+    @Test
+    void theCapacityCanBeOverridden() throws AirportException, PlaneException {
         Airport airport = new Airport.AirportBuilder()
                 .setCapacity(30)
                 .setWeather(weatherDouble)
@@ -153,6 +155,18 @@ class AirportTest {
             airport.clearForLanding(planeDouble1);
         });
         assertEquals("Could not clear plane for landing. Airport is full.", exception.getMessage());
+    }
+
+    @Test
+    void itCanOnlyTakeOffPlanesWhichAreAtTheAirport() throws PlaneException, AirportException {
+        Airport airport2 = new Airport.AirportBuilder()
+                .setWeather(weatherDouble)
+                .build();
+        airport.clearForLanding(planeDouble1);
+        Throwable exception = assertThrows(AirportException.class, () -> {
+            airport2.clearForTakeOff(planeDouble1);
+        });
+        assertEquals("Could not clear plane for take off. Plane is not at this airport.", exception.getMessage());
     }
 }
 

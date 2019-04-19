@@ -47,6 +47,7 @@ public class Airport {
     }
 
     public void clearForTakeOff(Plane plane) throws AirportException, PlaneException {
+        if (!contains(plane)) throw new AirportException("Could not clear plane for take off. Plane is not at this airport.");
         if (weather.isStormy()) throw new AirportException("Could not clear plane for take off. Weather was stormy.");
         plane.takeOff();
         hanger.remove(plane);
