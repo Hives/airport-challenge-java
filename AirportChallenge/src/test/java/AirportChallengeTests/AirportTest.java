@@ -79,9 +79,10 @@ class AirportTest {
     public void itThrowsErrorIfTakeOffAttemptedInBadWeather() throws AirportException, PlaneException {
         airport.clearForLanding(planeDouble1);
         weatherDouble.stormy = true;
-        assertThrows(AirportException.class, () -> {
+        Throwable exception = assertThrows(AirportException.class, () -> {
             airport.clearForTakeOff(planeDouble1);
         });
+        assertEquals("Could not clear plane for take off. Weather was stormy.", exception.getMessage());
     }
 
     @Test
@@ -98,9 +99,10 @@ class AirportTest {
     @Test
     public void itThrowsErrorIfLandingAttemptedInBadWeather() {
         weatherDouble.stormy = true;
-        assertThrows(AirportException.class, () -> {
+        Throwable exception = assertThrows(AirportException.class, () -> {
             airport.clearForLanding(planeDouble1);
         });
+        assertEquals("Could not clear plane for landing. Weather was stormy.", exception.getMessage());
     }
 
     @Test
@@ -120,9 +122,10 @@ class AirportTest {
         for (int i = 0; i < capacity; i++) {
             airport.clearForLanding(new PlaneDouble());
         }
-        assertThrows(AirportException.class, () -> {
+        Throwable exception = assertThrows(AirportException.class, () -> {
             airport.clearForLanding(new PlaneDouble());
         });
+        assertEquals("Could not clear plane for landing. Airport is full.", exception.getMessage());
     }
 
     @Test
@@ -146,9 +149,10 @@ class AirportTest {
         for (int i = 0; i < 30; i++) {
             airport.clearForLanding(new PlaneDouble());
         }
-        assertThrows(AirportException.class, () -> {
+        Throwable exception = assertThrows(AirportException.class, () -> {
             airport.clearForLanding(planeDouble1);
         });
+        assertEquals("Could not clear plane for landing. Airport is full.", exception.getMessage());
     }
 }
 

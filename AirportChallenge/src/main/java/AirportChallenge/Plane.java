@@ -8,7 +8,7 @@ public class Plane {
     }
 
     public void takeOff() throws PlaneException {
-        if (flying) throw new PlaneException("Plane could not take off. Plane already flying.");
+        if (flying) throw new PlaneException("Plane could not take off. Plane was already flying.");
         flying = true;
     }
 
