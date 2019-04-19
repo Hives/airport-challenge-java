@@ -4,7 +4,7 @@ import AirportChallenge.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserStories {
+public class FeatureTests {
     Plane plane1 = new Plane();
     WeatherDouble weatherDouble = new WeatherDouble();
     Airport airport = new Airport.AirportBuilder()
@@ -106,14 +106,14 @@ public class UserStories {
     public void planesThatAreNotFlyingCannotLand() throws AirportException, PlaneException {
         airport.clearForLanding(plane1);
         Throwable exception = assertThrows(PlaneException.class, () -> {
-            plane1.land();
+            plane1.land(airport);
         });
         assertEquals("Plane could not land. Plane is not flying.", exception.getMessage());
     }
 
     // Planes that are landed must be in an airport
     @Test
-    public void planesThatAreLandedMustBeInAnAirport() {
+    public void planesThatAreLandedMustBeInAnAirport() throws AirportException, PlaneException {
         airport.clearForLanding(plane1);
         assertEquals(plane1.airport(), airport);
     }

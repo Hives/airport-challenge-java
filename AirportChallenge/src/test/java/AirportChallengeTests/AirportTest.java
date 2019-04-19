@@ -30,12 +30,12 @@ class AirportTest {
     @Test
     public void itCanTellPlanesToLand() throws AirportException, PlaneException {
         airport.clearForLanding(planeMock);
-        verify(planeMock, times(1)).land();
+        verify(planeMock, times(1)).land(airport);
     }
 
     @Test
     public void itCantLandALandedPlane() throws AirportException, PlaneException {
-        doThrow(PlaneException.class).when(planeMock).land();
+        doThrow(PlaneException.class).when(planeMock).land(airport);
         try {
             airport.clearForLanding(planeMock);
         }

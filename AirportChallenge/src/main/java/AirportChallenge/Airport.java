@@ -42,7 +42,7 @@ public class Airport {
     public void clearForLanding(Plane plane) throws AirportException, PlaneException {
         if (hanger.size() >= capacity) throw new AirportException("Could not clear plane for landing. Airport is full.");
         if (weather.isStormy()) throw new AirportException("Could not clear plane for landing. Weather was stormy.");
-        plane.land();
+        plane.land(this);
         hanger.add(plane);
     }
 
