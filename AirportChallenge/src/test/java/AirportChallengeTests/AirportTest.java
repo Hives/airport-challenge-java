@@ -1,9 +1,13 @@
-package AirportChallenge;
+package AirportChallengeTests;
 
+import AirportChallenge.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.mockito.Mock;
 
-import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.*;
 
 class AirportTest {
 
@@ -15,29 +19,41 @@ class AirportTest {
             .setWeather(weatherDouble)
             .build();
 
+    @Mock
+    Plane planeMock;
+
+    @BeforeEach
+    void init() {
+        initMocks(this);
+    }
+
     @Test
-    public void itCanLandPlanes() throws AirportException {
+    public void itCanTellPlanesToLand() throws AirportException, PlaneException {
+        airport.clearForLanding(planeMock);
+        verify(planeMock, times(1)).land();
+    }
+
+    @Test
+    public void itContainsAPlaneAfterLandingIt() throws AirportException, PlaneException {
         airport.clearForLanding(planeDouble1);
         assertTrue(airport.contains(planeDouble1));
     }
 
     @Test
-    public void itThrowsErrorIfSamePlaneLandedTwice() throws AirportException {
-        airport.clearForLanding(planeDouble1);
-        assertThrows(AirportException.class, () -> {
-            airport.clearForLanding(planeDouble1);
-        });
+    public void itCanTellAPlaneToTakeOff() throws AirportException, PlaneException {
+        airport.clearForTakeOff(planeMock);
+        verify(planeMock, times(1)).takeOff();
     }
 
     @Test
-    public void itCanTellPlanesToTakeOff() throws AirportException {
+    public void itNoLongerContainsAPlaneAfterItTakesOff() throws AirportException, PlaneException {
         airport.clearForLanding(planeDouble1);
         airport.clearForTakeOff(planeDouble1);
         assertFalse(airport.contains(planeDouble1));
     }
 
     @Test
-    public void itTellsTheRightPlaneToTakeOff() throws AirportException {
+    public void itTellsTheRightPlaneToTakeOff() throws AirportException, PlaneException {
         airport.clearForLanding(planeDouble1);
         airport.clearForLanding(planeDouble2);
         airport.clearForLanding(planeDouble3);
@@ -50,14 +66,7 @@ class AirportTest {
     }
 
     @Test
-    public void itThrowsErrorIfPlaneToldToTakeOffWhenNotAtAirport() {
-        assertThrows(AirportException.class, () -> {
-            airport.clearForTakeOff(planeDouble1);
-        });
-    }
-
-    @Test
-    public void itThrowsErrorIfTakeOffAttemptedInBadWeather() throws AirportException {
+    public void itThrowsErrorIfTakeOffAttemptedInBadWeather() throws AirportException, PlaneException {
         airport.clearForLanding(planeDouble1);
         weatherDouble.stormy = true;
         assertThrows(AirportException.class, () -> {
@@ -66,7 +75,7 @@ class AirportTest {
     }
 
     @Test
-    public void itDoesNotTakeOffAPlaneInBadWeather() throws AirportException {
+    public void itDoesNotTakeOffAPlaneInBadWeather() throws AirportException, PlaneException {
         airport.clearForLanding(planeDouble1);
         weatherDouble.stormy = true;
         try {
@@ -85,7 +94,7 @@ class AirportTest {
     }
 
     @Test
-    public void itDoesNotLandAPlaneInBadWeather() {
+    public void itDoesNotLandAPlaneInBadWeather() throws PlaneException {
         weatherDouble.stormy = true;
         try {
             airport.clearForLanding(planeDouble1);
@@ -96,7 +105,7 @@ class AirportTest {
 
 
     @Test
-    public void itThrowsErrorIfLandingAttemptedWhenFull() throws AirportException {
+    public void itThrowsErrorIfLandingAttemptedWhenFull() throws AirportException, PlaneException {
         int capacity = Airport.AirportBuilder.MAX_CAPACITY;
         for (int i = 0; i < capacity; i++) {
             airport.clearForLanding(new PlaneDouble());
@@ -107,7 +116,7 @@ class AirportTest {
     }
 
     @Test
-    public void itDoesNotLandAPlaneIfFull() throws AirportException {
+    public void itDoesNotLandAPlaneIfFull() throws AirportException, PlaneException {
         for (int i = 0; i < Airport.AirportBuilder.MAX_CAPACITY; i++) {
             airport.clearForLanding(new PlaneDouble());
         }
@@ -118,14 +127,14 @@ class AirportTest {
         assertFalse(airport.contains(planeDouble1));
     }
 
-    @Test void theCapacityCanBeOverridden() throws AirportException {
+    @Test void theCapacityCanBeOverridden() throws AirportException, PlaneException {
         Airport airport = new Airport.AirportBuilder()
                 .setCapacity(30)
                 .setWeather(weatherDouble)
                 .build();
 
         for (int i = 0; i < 30; i++) {
-            airport.clearForLanding(new Plane());
+            airport.clearForLanding(new PlaneDouble());
         }
         assertThrows(AirportException.class, () -> {
             airport.clearForLanding(planeDouble1);

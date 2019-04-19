@@ -39,16 +39,16 @@ public class Airport {
         this.capacity = builder.capacity;
     }
 
-    public void clearForLanding(Plane plane) throws AirportException {
+    public void clearForLanding(Plane plane) throws AirportException, PlaneException {
         if (hanger.size() >= capacity) throw new AirportException("Plane could not land. Airport is full.");
         if (weather.isStormy()) throw new AirportException("Plane could not land. Weather was stormy.");
-        if (contains(plane)) throw new AirportException("Plane could not land. Plane already at airport.");
+        plane.land();
         hanger.add(plane);
     }
 
-    public void clearForTakeOff(Plane plane) throws AirportException {
+    public void clearForTakeOff(Plane plane) throws AirportException, PlaneException {
         if (weather.isStormy()) throw new AirportException("Plane could not take off. Weather was stormy.");
-        if (!contains(plane)) throw new AirportException("Plane could not take off. Plane not at airport.");
+        plane.takeOff();
         hanger.remove(plane);
     }
 

@@ -52,6 +52,7 @@
   symbol:   method clearForTakeOff(Plane)
   location: variable airport of type Airport
   ```
+  But you can apply the same BDD logic to these compiler errors - get your feature and unit tests to produce the same compiler errors, and then write the code to fix them. Good approach?
 - In the exemplar vid he uses a symbol, `:plane` as a double for plane early on, as he doesn't require it to have any particular properties at that point. This is a nice way of doubling a simple object. You can't do this in Java though because it wants to know the type of everything, so I had to create my `Plane` class much earlier, even though it wasn't doing anything.
 - Related - in the exemplar he interprets the 'i want to be able to instruct a plane to land' user story as just requiring that `airport.land(plane)` won't throw an error. But in Java, the code you won't compile unless there's an `airport.land()` which will accept `plane` as an input, so you can't write the equivalent test. So I chose to test that after doing `airport.land(plane)`, `airport.contains(plane)` was true.
 - [`throw` and `throws` in Java](https://www.geeksforgeeks.org/throw-throws-java/)  
@@ -123,4 +124,4 @@
 - Maven, Graven, Grapple, Gradle...... wtf was that all about
 - [This (tdd, jetbrains.com)](https://www.jetbrains.com/help/idea/tdd-with-intellij-idea.html) and [this (configuring testing libraries)](https://www.jetbrains.com/help/idea/configuring-testing-libraries.html) finally sorted me out
 - [Constructor overloading](https://www.geeksforgeeks.org/constructor-overloading-java/) - can use to provide a default value for the constructor method. Used for dependency injection in your tests. Basically you have two different constructors, one for if no argument is provided, and another one if you provide an argument, i.e. your mocked dependency.
-- Constructor overloading not so good when you want to pass in multiple optional things into your constructor, like a weather mock object and a capacity. Seems to introduce unnecessary repetition. Look into builder pattern?
+- Constructor overloading not so good when you want to pass in multiple optional things into your constructor, like a weather mock object and a capacity. Seems to introduce unnecessary repetition. Look into builder pattern? **Update** - I implemented the builder constructor pattern along with user story 6
