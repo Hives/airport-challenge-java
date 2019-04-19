@@ -121,7 +121,8 @@
                 Object o = emptyList.get(0);
             }
         }
-- Maven, Graven, Grapple, Gradle...... wtf was that all about
-- [This (tdd, jetbrains.com)](https://www.jetbrains.com/help/idea/tdd-with-intellij-idea.html) and [this (configuring testing libraries)](https://www.jetbrains.com/help/idea/configuring-testing-libraries.html) finally sorted me out
+- Struggled to get JUnit set up in my project. Do I need to use some kind of dependency manager? Maven, Grapple?
+- [This (tdd, jetbrains.com)](https://www.jetbrains.com/help/idea/tdd-with-intellij-idea.html) and [this (configuring testing libraries)](https://www.jetbrains.com/help/idea/configuring-testing-libraries.html) finally sorted me out. IntelliJ comes with JUnit, so you can install it without using Maven/Grapple
 - [Constructor overloading](https://www.geeksforgeeks.org/constructor-overloading-java/) - can use to provide a default value for the constructor method. Used for dependency injection in your tests. Basically you have two different constructors, one for if no argument is provided, and another one if you provide an argument, i.e. your mocked dependency.
 - Constructor overloading not so good when you want to pass in multiple optional things into your constructor, like a weather mock object and a capacity. Seems to introduce unnecessary repetition. Look into builder pattern? **Update** - I implemented the builder constructor pattern along with user story 6
+- For the edge cases I started to need to mock out the behaviour of my classes. Used Mockito for this. Installed it and its dependencies as a package through Maven, which I installed as a dependency in my project using IntelliJ. Maven is also now managing JUnit, instead of using IntelliJ's version. Managing project s in Java is complicated :-/
