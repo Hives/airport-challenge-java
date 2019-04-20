@@ -40,6 +40,7 @@
 
 - [Configuring testing libraries in IntelliJ (jetbrains.com)](https://www.jetbrains.com/help/idea/configuring-testing-libraries.html) - nah, forget that
 - From the tests: `FizzBuzz fizzBuzz = new FizzBuzz();` - why has this line got so many fizzbuzzes in it?
+  - LOL.
 
 ### 5. Airport challenge
 
@@ -54,7 +55,7 @@
   ```
   But you can apply the same BDD logic to these compiler errors - get your feature and unit tests to produce the same compiler errors, and then write the code to fix them. Good approach?
 - In the exemplar vid he uses a symbol, `:plane` as a double for plane early on, as he doesn't require it to have any particular properties at that point. This is a nice way of doubling a simple object. You can't do this in Java though because it wants to know the type of everything, so I had to create my `Plane` class much earlier, even though it wasn't doing anything.
-- Related - in the exemplar he interprets the 'i want to be able to instruct a plane to land' user story as just requiring that `airport.land(plane)` won't throw an error. But in Java, the code you won't compile unless there's an `airport.land()` which will accept `plane` as an input, so you can't write the equivalent test. So I chose to test that after doing `airport.land(plane)`, `airport.contains(plane)` was true.
+- Related - in the exemplar he interprets the 'i want to be able to instruct a plane to land' user story as just requiring that `airport.land(plane)` won't throw an error. But in Java, the code won't compile unless there's an `airport.land()` which will accept `plane` as an input, so you can't write the equivalent test. So I chose to test that after doing `airport.land(plane)`, `airport.contains(plane)` was true.
 - [`throw` and `throws` in Java](https://www.geeksforgeeks.org/throw-throws-java/)  
     **Should we make our exceptions checked or unchecked?**  
     Following is the bottom line from Java documents:  
@@ -130,7 +131,7 @@
 - Here's an example of some Java BDD - I wrote a feature test, ran it and got an error, then wrote a unit test which generated the same error: <img src="/images/replicating-error-in-feature-and-unit-tests.png">  
   The interesting thing about this though is that these errors are being thrown by the compiler, not the tests. So in a compiled language, you can (have to?) follow the compiler errors as much as the test failures.
 - Just for completeness here's what two actual test failures at feature and unit levels looks like: <img src="/images/replicating-test-failure-in-feature-and-unit-tests.png">
-- run JShell with `jshell --class-path AirportChallenge/taret/classes`, then:
+- run JShell with `jshell --class-path AirportChallenge/target/classes`, then:
   ```
   jshell> import AirportChallenge.*;
 
@@ -149,3 +150,7 @@
 
   etc.
   ```
+- What does `static` mean?
+  - For variables - basically a class variable.
+  - For methods - can be accessed before any objects of its class have been instantiated, can only directly call other static methods, can only directly access static data. Sounds a bit like a class method in Ruby then?
+- The builder constructor allowed my `Airport` to be initialised with optional arguments capacity and weather, which allowed me to inject the weather dependency without requiring capacity to also be specified. It's not the most elegant user interface though. Mockito allows you to inject dependencies outside of the constructor by identifying them with the `@InjectMocks` annotation. This would probably be better!
