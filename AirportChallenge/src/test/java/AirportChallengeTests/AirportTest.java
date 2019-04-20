@@ -11,20 +11,21 @@ import static org.mockito.MockitoAnnotations.*;
 
 class AirportTest {
 
-    Plane planeDouble1 = new Plane();
-    Plane planeDouble2 = new Plane();
-    Plane planeDouble3 = new Plane();
-    WeatherDouble weatherDouble = new WeatherDouble();
-    Airport airport = new Airport.AirportBuilder()
-            .setWeather(weatherDouble)
-            .build();
+    Airport airport;
 
     @Mock
     Plane planeMock;
 
+    @Mock
+    Weather weatherMock;
+
     @BeforeEach
-    void init() {
+    public void init() {
         initMocks(this);
+        when(weatherMock.isStormy()).thenReturn(false);
+        airport = new Airport.AirportBuilder()
+                .setWeather(weatherMock)
+                .build();
     }
 
     @Test
@@ -45,8 +46,8 @@ class AirportTest {
 
     @Test
     public void itContainsAPlaneAfterLandingIt() throws AirportException, PlaneException {
-        airport.clearForLanding(planeDouble1);
-        assertTrue(airport.contains(planeDouble1));
+        airport.clearForLanding(planeMock);
+        assertTrue(airport.contains(planeMock));
     }
 
     @Test
@@ -58,62 +59,65 @@ class AirportTest {
 
     @Test
     public void itNoLongerContainsAPlaneAfterItTakesOff() throws AirportException, PlaneException {
-        airport.clearForLanding(planeDouble1);
-        airport.clearForTakeOff(planeDouble1);
-        assertFalse(airport.contains(planeDouble1));
+        airport.clearForLanding(planeMock);
+        airport.clearForTakeOff(planeMock);
+        assertFalse(airport.contains(planeMock));
     }
 
     @Test
     public void itTellsTheRightPlaneToTakeOff() throws AirportException, PlaneException {
-        airport.clearForLanding(planeDouble1);
-        airport.clearForLanding(planeDouble2);
-        airport.clearForLanding(planeDouble3);
+        Plane planeMock2 = mock(Plane.class);
+        Plane planeMock3 = mock(Plane.class);
 
-        airport.clearForTakeOff(planeDouble2);
+        airport.clearForLanding(planeMock);
+        airport.clearForLanding(planeMock2);
+        airport.clearForLanding(planeMock3);
 
-        assertTrue(airport.contains(planeDouble1));
-        assertFalse(airport.contains(planeDouble2));
-        assertTrue(airport.contains(planeDouble3));
+        airport.clearForTakeOff(planeMock2);
+
+        assertTrue(airport.contains(planeMock));
+        assertFalse(airport.contains(planeMock2));
+        assertTrue(airport.contains(planeMock3));
     }
 
     @Test
     public void itThrowsErrorIfTakeOffAttemptedInBadWeather() throws AirportException, PlaneException {
-        airport.clearForLanding(planeDouble1);
-        weatherDouble.stormy = true;
+        airport.clearForLanding(planeMock);
+        when(weatherMock.isStormy()).thenReturn(true);
         Throwable exception = assertThrows(AirportException.class, () -> {
-            airport.clearForTakeOff(planeDouble1);
+            airport.clearForTakeOff(planeMock);
         });
         assertEquals("Could not clear plane for take off. Weather was stormy.", exception.getMessage());
     }
 
     @Test
     public void itDoesNotTakeOffAPlaneInBadWeather() throws AirportException, PlaneException {
-        airport.clearForLanding(planeDouble1);
-        weatherDouble.stormy = true;
+        airport.clearForLanding(planeMock);
+        when(weatherMock.isStormy()).thenReturn(true);
         try {
-            airport.clearForTakeOff(planeDouble1);
+            airport.clearForTakeOff(planeMock);
         }
         catch (AirportException exception) {}
-        assertTrue(airport.contains(planeDouble1));
+        assertTrue(airport.contains(planeMock));
     }
 
     @Test
     public void itThrowsErrorIfLandingAttemptedInBadWeather() {
-        weatherDouble.stormy = true;
+        when(weatherMock.isStormy()).thenReturn(true);
         Throwable exception = assertThrows(AirportException.class, () -> {
-            airport.clearForLanding(planeDouble1);
+            airport.clearForLanding(planeMock);
         });
         assertEquals("Could not clear plane for landing. Weather was stormy.", exception.getMessage());
     }
 
     @Test
     public void itDoesNotLandAPlaneInBadWeather() throws PlaneException {
-        weatherDouble.stormy = true;
+        when(weatherMock.isStormy()).thenReturn(true);
         try {
-            airport.clearForLanding(planeDouble1);
+            airport.clearForLanding(planeMock);
         }
         catch (AirportException exception) {}
-        assertFalse(airport.contains(planeDouble1));
+        assertFalse(airport.contains(planeMock));
     }
 
 
@@ -121,10 +125,10 @@ class AirportTest {
     public void itThrowsErrorIfLandingAttemptedWhenFull() throws AirportException, PlaneException {
         int capacity = Airport.AirportBuilder.MAX_CAPACITY;
         for (int i = 0; i < capacity; i++) {
-            airport.clearForLanding(new PlaneDouble());
+            airport.clearForLanding(mock(Plane.class));
         }
         Throwable exception = assertThrows(AirportException.class, () -> {
-            airport.clearForLanding(new PlaneDouble());
+            airport.clearForLanding(planeMock);
         });
         assertEquals("Could not clear plane for landing. Airport is full.", exception.getMessage());
     }
@@ -135,24 +139,24 @@ class AirportTest {
             airport.clearForLanding(new PlaneDouble());
         }
         try {
-            airport.clearForLanding(planeDouble1);
+            airport.clearForLanding(planeMock);
         }
         catch (AirportException exception) {}
-        assertFalse(airport.contains(planeDouble1));
+        assertFalse(airport.contains(planeMock));
     }
 
     @Test
     void theCapacityCanBeOverridden() throws AirportException, PlaneException {
         Airport airport = new Airport.AirportBuilder()
                 .setCapacity(30)
-                .setWeather(weatherDouble)
+                .setWeather(weatherMock)
                 .build();
 
         for (int i = 0; i < 30; i++) {
-            airport.clearForLanding(new PlaneDouble());
+            airport.clearForLanding(mock(Plane.class));
         }
         Throwable exception = assertThrows(AirportException.class, () -> {
-            airport.clearForLanding(planeDouble1);
+            airport.clearForLanding(planeMock);
         });
         assertEquals("Could not clear plane for landing. Airport is full.", exception.getMessage());
     }
@@ -160,11 +164,11 @@ class AirportTest {
     @Test
     void itCanOnlyTakeOffPlanesWhichAreAtTheAirport() throws PlaneException, AirportException {
         Airport airport2 = new Airport.AirportBuilder()
-                .setWeather(weatherDouble)
+                .setWeather(weatherMock)
                 .build();
-        airport.clearForLanding(planeDouble1);
+        airport.clearForLanding(planeMock);
         Throwable exception = assertThrows(AirportException.class, () -> {
-            airport2.clearForTakeOff(planeDouble1);
+            airport2.clearForTakeOff(planeMock);
         });
         assertEquals("Could not clear plane for take off. Plane is not at this airport.", exception.getMessage());
     }

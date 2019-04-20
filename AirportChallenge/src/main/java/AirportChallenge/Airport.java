@@ -15,7 +15,7 @@ public class Airport {
         public static final int MAX_CAPACITY = 25;
 
         public AirportBuilder() {
-            this.weather = new WeatherDouble();
+            this.weather = new Weather();
             this.capacity = MAX_CAPACITY;
         }
 
@@ -58,4 +58,3 @@ public class Airport {
     }
 
 }
-

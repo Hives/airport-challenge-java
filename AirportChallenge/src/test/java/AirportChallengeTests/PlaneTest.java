@@ -1,8 +1,6 @@
 package AirportChallengeTests;
 
-import AirportChallenge.Airport;
-import AirportChallenge.Plane;
-import AirportChallenge.PlaneException;
+import AirportChallenge.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -11,7 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class PlaneTest {
-    Plane plane = new Plane();
+
+    Plane plane;
 
     @Mock
     Airport airportMock;
@@ -19,10 +18,11 @@ public class PlaneTest {
     @BeforeEach
     void init() {
         initMocks(this);
+        plane = new Plane();
     }
 
-
-    @Test void aNewPlaneIsFlying() {
+    @Test
+    public void aNewPlaneIsFlying() {
         assertTrue(plane.isFlying());
     }
 
