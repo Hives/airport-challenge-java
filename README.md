@@ -130,3 +130,22 @@
 - Here's an example of some Java BDD - I wrote a feature test, ran it and got an error, then wrote a unit test which generated the same error: <img src="/images/replicating-error-in-feature-and-unit-tests.png">  
   The interesting thing about this though is that these errors are being thrown by the compiler, not the tests. So in a compiled language, you can (have to?) follow the compiler errors as much as the test failures.
 - Just for completeness here's what two actual test failures at feature and unit levels looks like: <img src="/images/replicating-test-failure-in-feature-and-unit-tests.png">
+- run JShell with `jshell --class-path AirportChallenge/taret/classes`, then:
+  ```
+  jshell> import AirportChallenge.*;
+
+  jshell> Airport airport = new Airport.AirportBuilder().build;
+  airport ==> AirportChallenge.Airport@3434d3d
+
+  jshell> Plane plane = new Plane()
+  plane ==> AirportChallenge.Plane@548e7350
+
+  jshell> airport.clearForLanding(plane);
+
+  jshell> airport.clearForTakeOff(plane);
+  | Exception AirportChallenge.AirportException: Could not clear plane for take off. Weather was stormy.
+  |       at Airport.clearForTakeOff (Airport.java:51)
+  |       at (#5:1)
+
+  etc.
+  ```
