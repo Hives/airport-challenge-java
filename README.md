@@ -1,137 +1,13 @@
-# Trying to test drive Airport Challenge in Java
+# Airport Challenge in Java
 
-*[Airport Challenge](https://github.com/makersacademy/airport_challenge)*
+In this project I test-drove a solution to the airport challenge in Java, a language I had never used before. The Airport Challenge involves a small number of classes interacting, so test-driving it succesfully requires techniques like the use of mocks and dependency injection, and stubbing out random behaviour.
 
-## Process
+## Installation
 
-### 1. Hello world
-
-- This was useful getting started: [Creating, running, and packaging a java app (jetbrains.com)](https://www.jetbrains.com/help/idea/creating-and-running-your-first-java-application.html)
-
-- Packages and classes:
-  > Packages are used for grouping together classes that belong to the same category or provide similar functionality, for structuring and organizing large applications with hundreds of classes.
-
-- In IntelliJ I select `src/` inthe project window, command-N, 'Java Class' to create a new class, and set the name as `com.example.helloworld.HelloWorld`. This means a package called `com.example.helloworld` with a class called `HelloWorld`.
-  IntelliJ creates the file with some scaffolding from templates.
-
-### 2. FizzBuzz
-
-- [Methods in Java](https://www.programiz.com/java-programming/methods):
-    - The `public` keyword makes myMethod() method public. Public members can be accessed from outside of the class. To learn more, visit: Java public and private Modifiers.
-    - The `static` keyword denotes that the method can be accessed without creating the object of the class. To learn more, visit: Static Keyword in Java
-    - The `void` keyword signifies that the method doesn’t return any value. You will learn about returning value from the method later in this article.
-
-### 3. Get started with junit
-
-- [junit 4 on GitHub](https://github.com/junit-team/junit4/wiki/Getting-started). Steps in 'getting started':
-    - install junit and hamcrest (i.e. copy the `.jar` files into your project folder)
-    - create the class under test
-        1. write the code
-        2. compile the code `javac YourClass.java`
-    - create a test
-        1. write the code for the test
-        2. compile the test `javac -cp .:junit-4.XX.jar:hamcrest-core-1.3.jar YourClassTest.java`
-    - run the test `java -cp .:junit-4.XX.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore YourClassTest`
-    - check the output
-    - modify your class, recompile the class
-    - run the test again (no need to recompile)
-
-### 4. TDD FizzBuzz
-
-- [Configuring testing libraries in IntelliJ (jetbrains.com)](https://www.jetbrains.com/help/idea/configuring-testing-libraries.html) - nah, forget that
-- From the tests: `FizzBuzz fizzBuzz = new FizzBuzz();` - why has this line got so many fizzbuzzes in it?
-  - LOL.
-
-### 5. Airport challenge
-
-- Will want a REPL. [JShell](https://www.infoq.com/articles/jshell-java-repl)
-- Java gives you way more error messages than Ruby and Javascript, even before the tests run. e.g. this error telling me the `airport.clearForTakeOff` method doesn't exist comes from the compiler, not the test
-  ```
-  AirportTest.java:44: error: cannot find symbol
-        airport.clearForTakeOff(plane2);
-               ^
-  symbol:   method clearForTakeOff(Plane)
-  location: variable airport of type Airport
-  ```
-  But you can apply the same BDD logic to these compiler errors - get your feature and unit tests to produce the same compiler errors, and then write the code to fix them. Good approach?
-- In the exemplar vid he uses a symbol, `:plane` as a double for plane early on, as he doesn't require it to have any particular properties at that point. This is a nice way of doubling a simple object. You can't do this in Java though because it wants to know the type of everything, so I had to create my `Plane` class much earlier, even though it wasn't doing anything.
-- Related - in the exemplar he interprets the 'i want to be able to instruct a plane to land' user story as just requiring that `airport.land(plane)` won't throw an error. But in Java, the code won't compile unless there's an `airport.land()` which will accept `plane` as an input, so you can't write the equivalent test. So I chose to test that after doing `airport.land(plane)`, `airport.contains(plane)` was true.
-- [`throw` and `throws` in Java](https://www.geeksforgeeks.org/throw-throws-java/)  
-    **Should we make our exceptions checked or unchecked?**  
-    Following is the bottom line from Java documents:  
-    > If a client can reasonably be expected to recover from an exception, make it a checked exception. If a client cannot do anything to recover from the exception, make it an unchecked exception
-- [Unchecked Exceptions — The Controversy](https://docs.oracle.com/javase/tutorial/essential/exceptions/runtime.html) 😲
-- In jshell:
-  ```
-  jshell> import airport.*;
-  
-  jshell> Airport airport = new Airport();
-  airport ==> airport.Airport@42e26948
-  
-  jshell> Plane plane = new Plane();
-  plane ==> airport.Plane@53b32d7
-  
-  jshell> airport.clearForLanding(plane);
-  $4 ==> [airport.Plane@53b32d7]
-  
-  jshell> airport.clearForTakeOff(plane);
-  $5 ==> []
-  ```
-  NICE
-- [JUnit FAQ](https://junit.org/junit4/faq.html)  
-  **Is there a basic template I can use to create a test?**
-
-    (Submitted by: Eric Armstrong)
-
-    The following templates are a good starting point. Copy/paste and edit these templates to suit your coding style.
-
-    SampleTest is a basic test template:
-
-        import org.junit.*;
-        import static org.junit.Assert.*;
-         
-        public class SampleTest {
-         
-            private java.util.List emptyList;
-         
-            /**
-             * Sets up the test fixture. 
-             * (Called before every test case method.)
-             */
-            @Before
-            public void setUp() {
-                emptyList = new java.util.ArrayList();
-            }
-         
-            /**
-             * Tears down the test fixture. 
-             * (Called after every test case method.)
-             */
-            @After
-            public void tearDown() {
-                emptyList = null;
-            }
-            
-            @Test
-            public void testSomeBehavior() {
-                assertEquals("Empty list should have 0 elements", 0, emptyList.size());
-            }
-         
-            @Test(expected=IndexOutOfBoundsException.class)
-            public void testForException() {
-                Object o = emptyList.get(0);
-            }
-        }
-- Struggled to get JUnit set up in my project. Do I need to use some kind of dependency manager? Maven, Grapple?
-- [This (tdd, jetbrains.com)](https://www.jetbrains.com/help/idea/tdd-with-intellij-idea.html) and [this (configuring testing libraries)](https://www.jetbrains.com/help/idea/configuring-testing-libraries.html) finally sorted me out. IntelliJ comes with JUnit, so you can install it without using Maven/Grapple
-- [Constructor overloading](https://www.geeksforgeeks.org/constructor-overloading-java/) - can use to provide a default value for the constructor method. Used for dependency injection in your tests. Basically you have two different constructors, one for if no argument is provided, and another one if you provide an argument, i.e. your mocked dependency.
-- Constructor overloading not so good when you want to pass in multiple optional things into your constructor, like a weather mock object and a capacity. Seems to introduce unnecessary repetition. Look into builder pattern? **Update** - I implemented the builder constructor pattern along with user story 6
-- For the edge cases I started to need to mock out the behaviour of my classes. Used Mockito for this. Installed it and its dependencies as a package through Maven, which I installed as a dependency in my project using IntelliJ. Maven is also now managing JUnit, instead of using IntelliJ's version. Managing project s in Java is complicated :-/
-- How do you check coverage?
-- Here's an example of some Java BDD - I wrote a feature test, ran it and got an error, then wrote a unit test which generated the same error: <img src="/images/replicating-error-in-feature-and-unit-tests.png">  
-  The interesting thing about this though is that these errors are being thrown by the compiler, not the tests. So in a compiled language, you can (have to?) follow the compiler errors as much as the test failures.
-- Just for completeness here's what two actual test failures at feature and unit levels looks like: <img src="/images/replicating-test-failure-in-feature-and-unit-tests.png">
-- run JShell with `jshell --class-path AirportChallenge/target/classes`, then:
+1. ??
+2. Compile it
+3. Import it into JShell
+4. Then:
   ```
   jshell> import AirportChallenge.*;
 
@@ -150,7 +26,55 @@
 
   etc.
   ```
-- What does `static` mean?
-  - For variables - basically a class variable.
-  - For methods - can be accessed before any objects of its class have been instantiated, can only directly call other static methods, can only directly access static data. Sounds a bit like a class method in Ruby then?
-- The builder constructor allowed my `Airport` to be initialised with optional arguments capacity and weather, which allowed me to inject the weather dependency without requiring capacity to also be specified. It's not the most elegant user interface though. Mockito allows you to inject dependencies outside of the constructor by identifying them with the `@InjectMocks` annotation. This would probably be better!
+
+## Technology
+
+- Java
+- JUnit5
+- Mockito
+- Maven
+- JShell
+- Intellij IDEA
+
+## Process
+
+*[All the notes I made along the way](notes.md)*
+
+My target was to complete a full solution to the Airport Challenge, implementing all the users stories and edge cases.
+
+This was a sequel to my [Airport Challenge in Javascript](https://github.com/Hives/airport-challenge-javascript), where I did the same exercise in JavaScript, a language in which I did have some experience.
+
+This was much harder! I found many resources for beginners in Java, and many resources for beginners in JUnit, the most popular Java test framework, but the JUnit resources assumed more knowledge of Java than I had. There was not much help for people who were beginners in both.
+
+My biggest problem at first was working out how to structure a Java project - what folders you need to make modules and packages which can easily be compiled. A lot of resources were telling me to use an IDE to set up my project, but I was resistent to this - I wanted to do it all manually, to better learn how it worked. I managed to do some simple exercises like this, [FizzBuzz](https://github.com/Hives/java-stuffs/tree/master/FizzBuzz) and then [TDDing FizzBuzz](https://github.com/Hives/java-stuffs/tree/master/TDDFizzBuzz), both completed using Vim and compiling and running from the command line. This taught me the basics about Java's static typing, and compiling and running source code and JUnit tests.
+
+But when I started on the Airport Challenge, a more complicated program with multiple source and test files, I ran into trouble trying to manage everything manually. I then began to oscillate between trying to set up my source and test code in IntelliJ IDEA, and doing it manually in the command line. After getting stuck with one method I would suspect that the other method might be easier, and switch to that. After a morning's work I didn't start really making progress until I took a break and came back to it two weeks later.
+
+In this period when I wasn't making much progress I wasn't ever totally stuck - I was learning, but slowly! This would have been a good time to ask for help, but I wanted to have the experience of learning something on my own.
+
+In the end I did settle on working in IntelliJ, and using that to structure my project. Once I got going with that progress was at a steady pace. Other hurdles along the way were:
+- Working out how to import my module into JShell so I could manually test it
+- Working out how to use Maven in IntelliJ to manage dependencies, to pull in Mockito, a mocking framework for Java.
+- Working out how to test for exceptions in Java I found confusing, until I figured out the meaning of the error messages I was getting
+
+As with the JavaScript airport challenge I found that TDD concepts like the red/green/refactor cycle, using dependency injection to make tests independent, and mocking were easily translatable into Java and could be implemented without too much trouble.
+
+Java gives you way more error messages than Ruby and Javascript, even before the tests run. e.g. this error telling me the `airport.clearForTakeOff` method doesn't exist comes from the compiler, not the test
+```
+AirportTest.java:44: error: cannot find symbol
+    airport.clearForTakeOff(plane2);
+            ^
+symbol:   method clearForTakeOff(Plane)
+location: variable airport of type Airport
+```
+But you can apply the same BDD logic to these compiler errors - get your feature and unit tests to produce the same compiler errors, and then write the code to fix them.
+
+I used a builder constructor for my Airport class as it allowed me to have multiple optional arguments, which I needed in order to make the capacity and Weather dependency optional. It means you have to run this command to set up a default Airport though, which is not pretty:
+```java
+Airport airport = new Airport.AirportBuilder().build;
+```
+It would be better to be able to do this to get a default airport:
+```java
+Airport airport = new Airport()
+```
+I wonder if there's a way to combine constructor overloading with the builder pattern to achieve this?
