@@ -78,3 +78,14 @@ It would be better to be able to do this to get a default airport:
 Airport airport = new Airport()
 ```
 I wonder if there's a way to combine constructor overloading with the builder pattern to achieve this?
+
+## Chat with Katerina
+
+- Make sure I bring out the general principles I used to do this which could be re-used in other situations:
+  - Do a simple task - FizzBuzz
+  - Research test frameworks
+  - Do a simple exercise with JUnit
+  - TDD FizzBuzz with JUnit
+  This will be good for 'i can TDD anything' and 'i can learn anything'
+- Builder constructor is a code smell - quite a big extra load of code just so I can test my dependency injection. You should try and avoid writing code just for your tests. Katerina and Michael thought parameters can have default values, so I should look into that. Would be a good thing to point to in terms of refactoring/writing clean code or whatever...
+- Katerina said she could give me more feedback if I highlighted specific things in relation to my goals
