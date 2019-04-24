@@ -11,21 +11,25 @@ import static org.mockito.MockitoAnnotations.*;
 
 class AirportTest {
 
-    Airport airport;
+    private Airport airport;
 
     @Mock
     Plane planeMock;
 
     @Mock
+    Plane planeMock2;
+
+    @Mock
+    Plane planeMock3;
+
+    @Mock
     Weather weatherMock;
 
     @BeforeEach
-    public void init() {
+    private void init() {
         initMocks(this);
         when(weatherMock.isStormy()).thenReturn(false);
-        airport = new Airport.AirportBuilder()
-                .setWeather(weatherMock)
-                .build();
+        airport = new Airport(weatherMock);
     }
 
     @Test
@@ -66,9 +70,6 @@ class AirportTest {
 
     @Test
     public void itTellsTheRightPlaneToTakeOff() throws AirportException, PlaneException {
-        Plane planeMock2 = mock(Plane.class);
-        Plane planeMock3 = mock(Plane.class);
-
         airport.clearForLanding(planeMock);
         airport.clearForLanding(planeMock2);
         airport.clearForLanding(planeMock3);
@@ -123,7 +124,7 @@ class AirportTest {
 
     @Test
     public void itThrowsErrorIfLandingAttemptedWhenFull() throws AirportException, PlaneException {
-        int capacity = Airport.AirportBuilder.MAX_CAPACITY;
+        int capacity = Airport.DEFAULT_MAX_CAPACITY;
         for (int i = 0; i < capacity; i++) {
             airport.clearForLanding(mock(Plane.class));
         }
@@ -135,7 +136,7 @@ class AirportTest {
 
     @Test
     public void itDoesNotLandAPlaneIfFull() throws AirportException, PlaneException {
-        for (int i = 0; i < Airport.AirportBuilder.MAX_CAPACITY; i++) {
+        for (int i = 0; i < Airport.DEFAULT_MAX_CAPACITY; i++) {
             airport.clearForLanding(new PlaneDouble());
         }
         try {
@@ -146,12 +147,8 @@ class AirportTest {
     }
 
     @Test
-    void theCapacityCanBeOverridden() throws AirportException, PlaneException {
-        Airport airport = new Airport.AirportBuilder()
-                .setCapacity(30)
-                .setWeather(weatherMock)
-                .build();
-
+    public void theCapacityCanBeOverridden() throws AirportException, PlaneException {
+        Airport airport = new Airport(weatherMock, 30);
         for (int i = 0; i < 30; i++) {
             airport.clearForLanding(mock(Plane.class));
         }
@@ -162,10 +159,8 @@ class AirportTest {
     }
 
     @Test
-    void itCanOnlyTakeOffPlanesWhichAreAtTheAirport() throws PlaneException, AirportException {
-        Airport airport2 = new Airport.AirportBuilder()
-                .setWeather(weatherMock)
-                .build();
+    public void itCanOnlyTakeOffPlanesWhichAreAtTheAirport() throws PlaneException, AirportException {
+        Airport airport2 = new Airport(weatherMock, 30);
         airport.clearForLanding(planeMock);
         Throwable exception = assertThrows(AirportException.class, () -> {
             airport2.clearForTakeOff(planeMock);

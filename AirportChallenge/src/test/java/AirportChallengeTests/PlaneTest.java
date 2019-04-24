@@ -10,13 +10,13 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public class PlaneTest {
 
-    Plane plane;
+    private Plane plane;
 
     @Mock
     Airport airportMock;
 
     @BeforeEach
-    void init() {
+    private void init() {
         initMocks(this);
         plane = new Plane();
     }
@@ -62,7 +62,8 @@ public class PlaneTest {
         assertEquals(plane.airport(), airportMock);
     }
 
-    @Test public void itCantBeAtAnAirportIfItsFlying() {
+    @Test
+    public void itCantBeAtAnAirportIfItsFlying() {
         Throwable exception = assertThrows(PlaneException.class, () -> {
             plane.airport();
         });

@@ -11,8 +11,8 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public class FeatureTests {
 
-    Plane plane;
-    Airport airport;
+    private Plane plane;
+    private Airport airport;
 
     @Mock
     Weather weatherMock;
@@ -22,9 +22,7 @@ public class FeatureTests {
         initMocks(this);
         when(weatherMock.isStormy()).thenReturn(false);
         plane = new Plane();
-        airport = new Airport.AirportBuilder()
-                .setWeather(weatherMock)
-                .build();
+        airport = new Airport(weatherMock);
     }
 
     // As an air traffic controller
@@ -76,7 +74,7 @@ public class FeatureTests {
     // I want to prevent landing when the airport is full
     @Test
     public void landingIsPreventedIfAirportIsFull() throws AirportException, PlaneException {
-        int capacity = Airport.AirportBuilder.MAX_CAPACITY;
+        int capacity = Airport.DEFAULT_MAX_CAPACITY;
         for (int i = 0; i < capacity; i++) {
             airport.clearForLanding(new Plane());
         }
@@ -91,10 +89,7 @@ public class FeatureTests {
     // I would like a default airport capacity that can be overridden as appropriate
     @Test
     public void defaultCapacityCanBeOverridden() throws AirportException, PlaneException {
-        Airport airport = new Airport.AirportBuilder()
-                             .setCapacity(30)
-                             .setWeather(weatherMock)
-                             .build();
+        Airport airport = new Airport(weatherMock, 30);
 
         for (int i = 0; i < 30; i++) {
             airport.clearForLanding(new Plane());
@@ -146,9 +141,7 @@ public class FeatureTests {
     // Planes can only take off from airports they are in
     @Test
     public void planesCanOnlyTakeOffFromAirportsTheyAreIn () throws AirportException, PlaneException {
-        Airport airport2 = new Airport.AirportBuilder()
-                .setWeather(weatherMock)
-                .build();
+        Airport airport2 = new Airport(weatherMock);
         airport.clearForLanding(plane);
         Throwable exception = assertThrows(AirportException.class, () -> {
             airport2.clearForTakeOff(plane);
