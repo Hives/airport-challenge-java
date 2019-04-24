@@ -7,36 +7,26 @@ public class Airport {
     private ArrayList<Plane> hanger = new ArrayList<Plane>();
     private Weather weather;
     private int capacity;
+    public static final int DEFAULT_MAX_CAPACITY = 25;
 
-    public static class AirportBuilder {
-
-        private Weather weather;
-        private int capacity;
-        public static final int MAX_CAPACITY = 25;
-
-        public AirportBuilder() {
-            this.weather = new Weather();
-            this.capacity = MAX_CAPACITY;
-        }
-
-        public AirportBuilder setWeather(Weather weather) {
-            this.weather = weather;
-            return this;
-        }
-
-        public AirportBuilder setCapacity(int capacity) {
-            this.capacity = capacity;
-            return this;
-        }
-
-        public Airport build() {
-            return new Airport(this);
-        }
+    public Airport() {
+        this.weather = new Weather();
+        this.capacity = this.DEFAULT_MAX_CAPACITY;
     }
 
-    private Airport(AirportBuilder builder) {
-        this.weather = builder.weather;
-        this.capacity = builder.capacity;
+    public Airport(Weather weather) {
+        this.weather = weather;
+        this.capacity = this.DEFAULT_MAX_CAPACITY;
+    }
+
+    public Airport(int capacity) {
+        this.weather = new Weather();
+        this.capacity = capacity;
+    }
+
+    public Airport(Weather weather, int capacity) {
+        this.weather = weather;
+        this.capacity = capacity;
     }
 
     public void clearForLanding(Plane plane) throws AirportException, PlaneException {
