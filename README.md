@@ -1,31 +1,60 @@
 # Airport Challenge in Java
 
-In this project I test-drove a solution to the airport challenge in Java, a language I had never used before. The Airport Challenge involves a small number of classes interacting, so test-driving it succesfully requires techniques like the use of mocks and dependency injection, and stubbing out random behaviour.
+In this project I test-drove a solution to the airport challenge in Java, a language I had never used before. The Airport Challenge involves a small number of classes interacting, and test-driving it successfully requires techniques like the use of mocks and dependency injection, and stubbing out random behaviour.
 
-## Installation
+*[Exercise instructions](exercise-instructions.md)*
 
-1. ??
-2. Compile it
-3. Import it into JShell
-4. Then:
-  ```
-  jshell> import AirportChallenge.*;
 
-  jshell> Airport airport = new Airport.AirportBuilder().build;
-  airport ==> AirportChallenge.Airport@3434d3d
+## Instructions
 
-  jshell> Plane plane = new Plane()
-  plane ==> AirportChallenge.Plane@548e7350
+1. Clone repo
+2. Open `AirportChallenge` folder in your favourite Java IDE
+3. Compile it
+4. Run a REPL and import the Airport Challenge classes, and you can create planes and airports and run their methods. For instance in Groovy Console in IntelliJ:
+    ```
+    > import AirportChallenge.*
+    > Airport airport = new Airport()
+    > Plane plane = new Plane()
+    > airport.clearForLanding(plane)
+    > airport.contains(plane)
 
-  jshell> airport.clearForLanding(plane);
+    Result: true
+    ```
+    ```
+    > import AirportChallenge.*
+    > Airport airport = new Airport()
+    > Plane plane = new Plane()
+    > airport.clearForLanding(plane)
+    > airport.clearForLanding(plane)
+    AirportChallenge.PlaneException: Plane could not land. Plane is not flying.
+    ```
+    ```
+    > import AirportChallenge.*
+    > Airport airport = new Airport()
+    > Plane plane = new Plane()
+    > airport.clearForLanding(plane)
+    > airport.clearForTakeOff(plane)
+    > airport.contains(plane)
 
-  jshell> airport.clearForTakeOff(plane);
-  | Exception AirportChallenge.AirportException: Could not clear plane for take off. Weather was stormy.
-  |       at Airport.clearForTakeOff (Airport.java:51)
-  |       at (#5:1)
+    Result: false
+    ```
 
-  etc.
-  ```
+### Behaviour
+
+See the [instructions](exercise-instructions.md) for user stories.
+
+1. Airports can tell planes to land or take off:  
+    `airport.clearForLanding(plane)`  
+    `airport.clearForTakeOff(plane)`
+2. With a chance of 25% the weather will be too bad for take off/landing
+3. Airports have a default maximum capacity which can be overridden when initialising
+4. Planes can only take off from airports they are in, they can only take off if they are landed, and they can only land if they are flying
+
+## Tests
+
+Use your IDE to run the tests found in in `AirportChallenge/src/test/java/AirportChallengeTests`.
+
+<img src="images/tests-running.png">
 
 ## Technology
 
@@ -69,23 +98,4 @@ location: variable airport of type Airport
 ```
 But you can apply the same BDD logic to these compiler errors - get your feature and unit tests to produce the same compiler errors, and then write the code to fix them.
 
-I used a builder constructor for my Airport class as it allowed me to have multiple optional arguments, which I needed in order to make the capacity and Weather dependency optional. It means you have to run this command to set up a default Airport though, which is not pretty:
-```java
-Airport airport = new Airport.AirportBuilder().build;
-```
-It would be better to be able to do this to get a default airport:
-```java
-Airport airport = new Airport()
-```
-I wonder if there's a way to combine constructor overloading with the builder pattern to achieve this?
-
-## Chat with Katerina
-
-- Make sure I bring out the general principles I used to do this which could be re-used in other situations:
-  - Do a simple task - FizzBuzz
-  - Research test frameworks
-  - Do a simple exercise with JUnit
-  - TDD FizzBuzz with JUnit
-  This will be good for 'i can TDD anything' and 'i can learn anything'
-- Builder constructor is a code smell - quite a big extra load of code just so I can test my dependency injection. You should try and avoid writing code just for your tests. Katerina and Michael thought parameters can have default values, so I should look into that. Would be a good thing to point to in terms of refactoring/writing clean code or whatever...
-- Katerina said she could give me more feedback if I highlighted specific things in relation to my goals
+Initially I used a builder constructor for my Airport class as it allowed me to have multiple optional arguments in the constructor. [See this commit](https://github.com/Hives/airport-challenge-java/commit/f0ff4f72711b5ea585caa3c0c1f621a30cb03583). After talking to Katerina and Michael it turns out that you don't need to do this - you can have multiple constructors, as I was doing before (overloaded constructor), and because Java is statically typed, if you only pass in one parameter to the constructor, it can tell whether to use the one where you provide a Weather object, or an integer capacity. [See this commit](https://github.com/Hives/airport-challenge-java/commit/6768e80ff527a285b01496773df54250f9e66756). I guess this is only feasible if the parameter are of different types, otherwise it would have no way of knowing which was which.
